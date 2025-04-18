@@ -1,0 +1,7 @@
+{
+  "name": "projeto-teatro",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
