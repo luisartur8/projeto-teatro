@@ -1,0 +1,20 @@
+{
+    "teathers": [],
+    "actors": [
+      {
+        "id": "4c22",
+        "name": "João",
+        "age": "18"
+      },
+      {
+        "id": "059d",
+        "name": "Artur",
+        "age": "19"
+      },
+      {
+        "id": "99ea",
+        "name": "Pedro",
+        "age": "20"
+      }
+    ]
+  }
