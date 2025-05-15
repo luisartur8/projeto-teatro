@@ -13,4 +13,34 @@
       <ion-title size="large">Teatro - Teatro (titulo 2)</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Lista de Teatros</ion-label>
+    </ion-list-header>
+    @for(theater of theaterList; track theater.name) {
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img [src]="theater.image" />
+      </ion-thumbnail>
+      <ion-text>
+        <h2>{{ theater.name }}</h2>
+        <h3><strong>Telefone: </strong> {{ theater.phone }} </h3>
+        <h3><strong>Email: </strong> {{ theater.email }} </h3>
+        <h3><strong>Endereço: </strong> {{ theater.address }} </h3>
+        <h4><strong>Fundação: </strong> {{theater.foundation | date: 'dd/MM/yyyy' }}</h4>
+        <h4><strong>Capacidade: </strong> {{theater.capacity }}</h4>
+        <h4><strong>Website:</strong> {{theater.website }}</h4>
+      </ion-text>
+    </ion-item>
+    }
+    @empty {
+    <ion-item>Lista de teatros vazia, cadastre um novo teatro!</ion-item>
+    }
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['new']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -6,16 +6,39 @@
     <ion-title>Teatro - Ator (titulo 1)</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Teatro - Ator (titulo 2)</ion-title>
-      <!-- <ion-select formControlName="platforms" label="Plataformas" label-placement="floating" multiple="true">
-        @for(actor of actors; track platform) {
-          <ion-select-option [value]="platform">{{platform.name}}</ion-select-option>
-        }
-      </ion-select> -->
     </ion-toolbar>
   </ion-header>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Lista de Atores</ion-label>
+    </ion-list-header>
+    @for(actor of actorList; track actor.name) {
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img [src]="actor.image" />
+      </ion-thumbnail>
+      <ion-text>
+        <h2>{{ actor.name }}</h2>
+        <h3><strong>Telefone: </strong> {{ actor.phone }} </h3>
+        <h4><strong>Aniversário: </strong> {{ actor.birthDate | date: 'dd/MM/yyyy' }}</h4>
+        <h4><strong>Email: </strong> {{ actor.email }}</h4>
+        <h4><strong>Genero: </strong> {{ actor.gender }}</h4>
+        <h4><strong>Biografia: </strong> {{ actor.biography }}</h4>
+      </ion-text>
+    </ion-item>
+    }
+    @empty {
+    <ion-item>Lista de atores vazia, cadastre um novo ator!</ion-item>
+    }
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['new']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

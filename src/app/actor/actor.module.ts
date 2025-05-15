@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ActorPageRoutingModule } from './actor-routing.module';
 
 import { ActorPage } from './actor.page';
+import { ActorFormComponent } from './actor-form/actor-form.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ActorPage } from './actor.page';
     IonicModule,
     ActorPageRoutingModule
   ],
-  declarations: [ActorPage]
+  declarations: [ActorPage, ActorFormComponent]
 })
-export class ActorPageModule {}
+export class ActorPageModule { }

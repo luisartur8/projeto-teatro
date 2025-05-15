@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TheaterPageRoutingModule } from './theater-routing.module';
 
 import { TheaterPage } from './theater.page';
+import { TheaterFormComponent } from './theater-form/theater-form.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { TheaterPage } from './theater.page';
     IonicModule,
     TheaterPageRoutingModule
   ],
-  declarations: [TheaterPage]
+  declarations: [TheaterPage, TheaterFormComponent]
 })
 export class TheaterPageModule {}
