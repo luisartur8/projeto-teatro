@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { dateMask, maskitoElement, phoneMask } from 'src/app/core/constants/mask.constants';
 
 @Component({
   selector: 'app-actor-form',
@@ -7,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class ActorFormComponent  implements OnInit {
+
+  dateMask = dateMask;
+  phoneMask = phoneMask;
+  maskitoElement = maskitoElement;
 
   constructor() { }
 
