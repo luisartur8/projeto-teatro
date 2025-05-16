@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./theater/theater.module').then( m => m.TheaterPageModule)
   },
   {
+    path: 'play',
+    loadChildren: () => import('./play/play.module').then( m => m.PlayPageModule)
+  },
+  {
     path: 'actor',
     loadChildren: () => import('./actor/actor.module').then( m => m.ActorPageModule)
   }

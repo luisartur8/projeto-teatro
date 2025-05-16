@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Peça - Peça (titulo 1)</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Peça - Peça (titulo 2)</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Lista de Peça</ion-label>
+    </ion-list-header>
+    @for(play of playList; track play.name) {
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <!-- <img [src]="play.image" /> -->
+      </ion-thumbnail>
+      <ion-text>
+        <h2>{{ play.name }}</h2>        
+        <h4><strong>Endereço: </strong> {{ play.address }} </h4>        
+        <h5><strong>Capacidade: </strong> {{play.capacity }}</h5>
+        <h5><strong>Sinopse:</strong> {{play.synopsis }}</h5>
+        <h5><strong>Gênero:</strong> {{play.gender }}</h5>
+      </ion-text>
+    </ion-item>
+    }
+    @empty {
+    <ion-item>Lista de Peças vazia, cadastre uma nova Peça!</ion-item>
+    }
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['new']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
