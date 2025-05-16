@@ -8,34 +8,38 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Nome: " type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Logo (URL)" type="url"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Telefone" [maskito]="phoneMask" [maskitoElement]="maskitoElement"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Email" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Endereço" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Fundação" [maskito]="dateMask" [maskitoElement]="maskitoElement" />
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Capacidade" type="number" />
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Website" type="text" />
-    </ion-item>
-  </ion-list>
+  <form [formGroup]="theaterForm">
+    <ion-list>
+      <ion-item>
+        <ion-input formControlName="name" labelPlacement="floating" label="Nome: " type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="image" labelPlacement="floating" label="Logo (URL)" type="url"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="phone" labelPlacement="floating" label="Telefone" [maskito]="phoneMask"
+          [maskitoElement]="maskitoElement"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="email" labelPlacement="floating" label="Email" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="adress" labelPlacement="floating" label="Endereço" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="foundation" labelPlacement="floating" label="Fundação" [maskito]="dateMask"
+          [maskitoElement]="maskitoElement"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="capacity" labelPlacement="floating" label="Capacidade" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="website" labelPlacement="floating" label="Website" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button [disabled]="theaterForm.invalid">
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
   </ion-fab>

@@ -8,31 +8,34 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Nome: " type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Logo (URL)" type="url"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Telefone" [maskito]="phoneMask" [maskitoElement]="maskitoElement" />
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Aniversário" [maskito]="dateMask" [maskitoElement]="maskitoElement" />
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Email" type="text" />
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Genero" type="text" />
-    </ion-item>
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Biografia" type="text" />
-    </ion-item>
-  </ion-list>
+  <form [formGroup]="actorForm">
+    <ion-list>
+      <ion-item>
+        <ion-input formControlName="name" labelPlacement="floating" label="Nome: " type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="image" labelPlacement="floating" label="Logo (URL)" type="url"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="phone" labelPlacement="floating" label="Telefone" [maskito]="phoneMask" [maskitoElement]="maskitoElement" />
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="birthDate" labelPlacement="floating" label="Aniversário" [maskito]="dateMask"
+          [maskitoElement]="maskitoElement" />
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="email" labelPlacement="floating" label="Email" type="text" />
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="gender" labelPlacement="floating" label="Genero" type="text" />
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="biography" labelPlacement="floating" label="Biografia" type="text" />
+      </ion-item>
+    </ion-list>
+  </form>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button [disabled]="actorForm.invalid">
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
   </ion-fab>
