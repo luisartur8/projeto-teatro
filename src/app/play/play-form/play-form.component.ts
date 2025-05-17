@@ -18,11 +18,7 @@ export class PlayFormComponent implements OnInit {
   maskitoElement = maskitoElement;
 
   PlayForm: FormGroup = new FormGroup({
-    name: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(100)
-    ]),   
+    name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]),
     address: new FormControl(''),
     capacity: new FormControl(''),
     gender: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)] ),
