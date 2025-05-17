@@ -41,12 +41,39 @@ export class ActorService {
 
   constructor() { }
 
+  getById(actorId: number) {
+    return this.actorList.find(g => g.id === actorId);
+  }
+
   getList() {
     return [...this.actorList];
   }
 
-  add(actor: Actor) {
-    this.actorList = [...this.actorList, actor];
+  private add(actor: Actor) {
+    this.actorList = [...this.actorList, {
+      ...actor,
+      id: this.getNextId()
+    }];
+  }
+
+  private getNextId(): number {
+    const maxId = this.actorList.reduce((id, actor) => {
+      if (!!actor.id && actor?.id > id) {
+        id = actor.id;
+      }
+      return id;
+    }, 0);
+    return maxId + 1;
+  }
+
+  private update(updatedActor: Actor) {
+    this.actorList = this.actorList.map(g => {
+      return (g.id === updatedActor.id) ? updatedActor : g;
+    });
+  }
+
+  save(actor: Actor) {
+    actor.id ? this.update(actor) : this.add(actor);
   }
 
   remove(actor: Actor) {

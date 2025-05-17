@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { dateMask, maskitoElement, parseDateMask, phoneMask } from 'src/app/core/constants/mask.constants';
+import { dateMask, formatDateMask, maskitoElement, parseDateMask, phoneMask } from 'src/app/core/constants/mask.constants';
 import { ApplicationPhoneValidators } from 'src/app/core/validators/phone.validator';
 import { ApplicationUrlValidators } from 'src/app/core/validators/url.validator';
 import { ApplicationDateValidators } from 'src/app/core/validators/date.validator';
 import { ApplicationEmailValidators } from 'src/app/core/validators/email.validator';
 import { ActorService } from '../services/actor.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-actor-form',
@@ -45,8 +45,21 @@ export class ActorFormComponent implements OnInit {
     gender: new FormControl(''),
     biography: new FormControl('')
   });
+  actorId!: number;
 
-  constructor(private actorService: ActorService, private router: Router) { }
+  constructor(private actorService: ActorService, private router: Router, private activatedRoute: ActivatedRoute) {
+    const actorId = parseInt(this.activatedRoute.snapshot.params['actorId']);
+    if (actorId) {
+      const actor = this.actorService.getById(actorId);
+      if (actor) {
+        this.actorId = actorId;
+        if (actor.birthDate instanceof Date) {
+          actor.birthDate = formatDateMask(actor.birthDate);
+        }
+        this.actorForm.patchValue(actor);
+      }
+    }
+  }
 
   ngOnInit() { }
 
@@ -57,8 +70,13 @@ export class ActorFormComponent implements OnInit {
 
   save() {
     let { value } = this.actorForm;
-    value.birthDate = parseDateMask(value.birthDate)
-    this.actorService.add(value);
+    if (value.birthDate) {
+      value.birthDate = parseDateMask(value.birthDate)
+    }
+    this.actorService.save({
+      ...value,
+      id: this.actorId
+    });
     this.router.navigate(['/actor']);
   }
 }

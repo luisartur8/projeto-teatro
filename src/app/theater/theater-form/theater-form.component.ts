@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { capacityMask, dateMask, maskitoElement, parseDateMask, phoneMask } from 'src/app/core/constants/mask.constants';
+import { capacityMask, dateMask, formatDateMask, maskitoElement, parseDateMask, phoneMask } from 'src/app/core/constants/mask.constants';
 import { ApplicationPhoneValidators } from 'src/app/core/validators/phone.validator';
 import { ApplicationUrlValidators } from 'src/app/core/validators/url.validator';
 import { ApplicationDateValidators } from 'src/app/core/validators/date.validator';
 import { TheaterService } from '../services/theater.service';
 import { ApplicationEmailValidators } from 'src/app/core/validators/email.validator';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-theater-form',
@@ -50,8 +50,21 @@ export class TheaterFormComponent implements OnInit {
       ApplicationUrlValidators.urlValidator
     ])
   });
+  theaterId!: number;
 
-  constructor(private theaterService: TheaterService, private router: Router) { }
+  constructor(private theaterService: TheaterService, private router: Router, private activatedRoute: ActivatedRoute) {
+    const theaterId = parseInt(this.activatedRoute.snapshot.params['theaterId']);
+    if (theaterId) {
+      const theater = this.theaterService.getById(theaterId);
+      if (theater) {
+        this.theaterId = theaterId;
+        if (theater.foundation instanceof Date) {
+          theater.foundation = formatDateMask(theater.foundation);
+        }
+        this.theaterForm.patchValue(theater);
+      }
+    }
+  }
 
   ngOnInit() { }
 
@@ -62,8 +75,13 @@ export class TheaterFormComponent implements OnInit {
 
   save() {
     let { value } = this.theaterForm;
-    value.foundation = parseDateMask(value.foundation)
-    this.theaterService.add(value);
+    if (value.foundation) {
+      value.foundation = parseDateMask(value.foundation)
+    }
+    this.theaterService.save({
+      ...value,
+      id: this.theaterId
+    });
     this.router.navigate(['/theater']);
   }
 }

@@ -4,7 +4,7 @@ export type Theater = {
   image: string | null,
   phone: string,
   email: string,
-  foundation: Date,
+  foundation: Date | string,
   address: string,
   capacity: number,
   website: string | null,

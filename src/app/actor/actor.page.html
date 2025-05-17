@@ -27,13 +27,13 @@
         }
       </ion-thumbnail>
       <ion-text class="actor-info">
-        <h2>{{ actor.name }}</h2>
+        <h2>{{ actor.id }} - {{ actor.name }}</h2>
         <h3><strong>Telefone: </strong> {{ actor.phone }} </h3>
         <h4><strong>Aniversário: </strong> {{ actor.birthDate | date: 'dd/MM/yyyy' }}</h4>
         <h4><strong>Email: </strong> {{ actor.email }}</h4>
         <h4><strong>Genero: </strong> {{ actor.gender }}</h4>
         <h4><strong>Biografia: </strong> {{ actor.biography }}</h4>
-        <ion-button size="small">
+        <ion-button size="small" [routerLink]="['edit', actor.id]">
           <ion-icon name="create" slot="start"></ion-icon>
           Editar
         </ion-button>

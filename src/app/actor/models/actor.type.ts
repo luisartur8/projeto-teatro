@@ -4,7 +4,7 @@ export type Actor = {
   image: string | null,
   phone: string,
   email: string,
-  birthDate: Date,
+  birthDate: Date | string,
   gender: string,
   biography: string
 }

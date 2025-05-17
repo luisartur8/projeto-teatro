@@ -44,12 +44,39 @@ export class TheaterService {
 
   constructor() { }
 
+  getById(theaterId: number) {
+    return this.theaterList.find(g => g.id === theaterId);
+  }
+
   getList() {
     return [...this.theaterList];
   }
 
-  add(theater: Theater) {
-    this.theaterList = [...this.theaterList, theater];
+  private add(theater: Theater) {
+    this.theaterList = [...this.theaterList, {
+      ...theater,
+      id: this.getNextId()
+    }];
+  }
+
+  private getNextId(): number {
+    const maxId = this.theaterList.reduce((id, theater) => {
+      if (!!theater.id && theater?.id > id) {
+        id = theater.id;
+      }
+      return id;
+    }, 0);
+    return maxId + 1;
+  }
+
+  private update(updatedTheater: Theater) {
+    this.theaterList = this.theaterList.map(g => {
+      return (g.id === updatedTheater.id) ? updatedTheater : g;
+    });
+  }
+
+  save(theater: Theater) {
+    theater.id ? this.update(theater) : this.add(theater);
   }
 
   remove(theater: Theater) {

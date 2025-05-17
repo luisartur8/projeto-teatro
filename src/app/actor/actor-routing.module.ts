@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'new',
     component: ActorFormComponent
+  },
+  {
+    path: 'edit/:actorId',
+    component: ActorFormComponent,
   }
 ];
 
@@ -19,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ActorPageRoutingModule {}
+export class ActorPageRoutingModule { }
