@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'new',
     component: TheaterFormComponent
+  },
+  {
+    path: 'edit/:theaterId',
+    component: TheaterFormComponent,
   }
 ];
 
@@ -19,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TheaterPageRoutingModule {}
+export class TheaterPageRoutingModule { }

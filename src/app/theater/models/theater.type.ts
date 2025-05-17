@@ -1,11 +1,11 @@
 export type Theater = {
-  id?: string,
+  id?: number,
   name: string,
   image: string | null,
   phone: string,
   email: string,
-  foundation: Date,
+  foundation: Date | string,
   address: string,
   capacity: number,
-  website: string,
+  website: string | null,
 }

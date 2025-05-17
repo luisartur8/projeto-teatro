@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'new',
     component: PlayFormComponent
+  },
+  {
+    path: 'edit/:playId',
+    component: PlayFormComponent,
   }
 ];
 

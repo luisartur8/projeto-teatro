@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { dateMask, maskitoElement, phoneMask } from 'src/app/core/constants/mask.constants';
+import { capacityMask, dateMask, formatDateMask, maskitoElement, parseDateMask, phoneMask } from 'src/app/core/constants/mask.constants';
+import { ApplicationPhoneValidators } from 'src/app/core/validators/phone.validator';
+import { ApplicationUrlValidators } from 'src/app/core/validators/url.validator';
+import { ApplicationDateValidators } from 'src/app/core/validators/date.validator';
+import { TheaterService } from '../services/theater.service';
+import { ApplicationEmailValidators } from 'src/app/core/validators/email.validator';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-theater-form',
@@ -11,22 +17,71 @@ import { dateMask, maskitoElement, phoneMask } from 'src/app/core/constants/mask
 export class TheaterFormComponent implements OnInit {
 
   dateMask = dateMask;
-  phoneMask = phoneMask
+  phoneMask = phoneMask;
+  capacityMask = capacityMask;
   maskitoElement = maskitoElement;
 
   theaterForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]),
-    image: new FormControl(''),
-    phone: new FormControl(''),
-    email: new FormControl(''),
-    adress: new FormControl(''),
-    foundation: new FormControl(''),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(100)
+    ]),
+    image: new FormControl('', [
+      Validators.required,
+      ApplicationUrlValidators.urlValidator
+    ]),
+    phone: new FormControl('', [
+      Validators.required,
+      ApplicationPhoneValidators.phoneValidator
+    ]),
+    foundation: new FormControl('', [
+      Validators.required,
+      ApplicationDateValidators.dateValidator
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+      ApplicationEmailValidators.emailValidator
+    ]),
+    address: new FormControl(''),
     capacity: new FormControl(''),
-    website: new FormControl('')
+    website: new FormControl('', [
+      Validators.required,
+      ApplicationUrlValidators.urlValidator
+    ])
   });
+  theaterId!: number;
 
-  constructor() { }
+  constructor(private theaterService: TheaterService, private router: Router, private activatedRoute: ActivatedRoute) {
+    const theaterId = parseInt(this.activatedRoute.snapshot.params['theaterId']);
+    if (theaterId) {
+      const theater = this.theaterService.getById(theaterId);
+      if (theater) {
+        this.theaterId = theaterId;
+        if (theater.foundation instanceof Date) {
+          theater.foundation = formatDateMask(theater.foundation);
+        }
+        this.theaterForm.patchValue(theater);
+      }
+    }
+  }
 
   ngOnInit() { }
 
+  hasError(field: string, error: string) {
+    const formControl = this.theaterForm.get(field);
+    return formControl?.touched && formControl?.errors?.[error]
+  }
+
+  save() {
+    let { value } = this.theaterForm;
+    if (value.foundation) {
+      value.foundation = parseDateMask(value.foundation)
+    }
+    this.theaterService.save({
+      ...value,
+      id: this.theaterId
+    });
+    this.router.navigate(['/theater']);
+  }
 }
