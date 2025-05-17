@@ -23,12 +23,20 @@
       <ion-thumbnail slot="start">
         <!-- <img [src]="play.image" /> -->
       </ion-thumbnail>
-      <ion-text>
-        <h2>{{ play.name }}</h2>        
+      <ion-text class="play-info">
+        <h2>{{ play.id }} - {{ play.name }}</h2>        
         <h4><strong>Endereço: </strong> {{ play.address }} </h4>        
         <h5><strong>Capacidade: </strong> {{play.capacity }}</h5>
         <h5><strong>Sinopse:</strong> {{play.synopsis }}</h5>
         <h5><strong>Gênero:</strong> {{play.gender }}</h5>
+        <ion-button size="small" [routerLink]="['edit', play.id]">
+          <ion-icon name="create" slot="start"></ion-icon>
+          Editar
+        </ion-button>
+        <ion-button size="small" (click)="remove(play)">
+          <ion-icon name="trash" slot="end"></ion-icon>
+          Excluir
+        </ion-button>
       </ion-text>
     </ion-item>
     }

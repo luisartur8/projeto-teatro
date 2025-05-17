@@ -12,12 +12,38 @@
     <ion-list>
       <ion-item>
         <ion-input formControlName="name" labelPlacement="floating" label="Nome: " type="text"></ion-input>
+
+          @if(hasError('name', 'required')) {
+            O campo é obrigatório
+          }
+          @if(hasError('name', 'minlength')) {
+            O campo deve ter no mínimo 4 caracteres
+          }
+          @if(hasError('name', 'maxlength')) {
+            O campo deve ter no máximo 100 caracteres
+          }        
       </ion-item>
       <ion-item>
         <ion-input formControlName="synopsis" labelPlacement="floating" label="Sinopse: " type="text"></ion-input>
+        <p>          
+          @if(hasError('name', 'minlength')) {
+            O campo deve ter no mínimo 100 caracteres
+          }
+          @if(hasError('name', 'maxlength')) {
+            O campo deve ter no máximo 255 caracteres
+          }
+        </p>
       </ion-item>
       <ion-item>
         <ion-input formControlName="gender" labelPlacement="floating" label="Gênero" type="text"></ion-input>
+        <p>          
+          @if(hasError('name', 'minlength')) {
+            O campo deve ter no mínimo 4 caracteres
+          }
+          @if(hasError('name', 'maxlength')) {
+            O campo deve ter no máximo 20 caracteres
+          }
+        </p>
       </ion-item>      
       <ion-item>
         <ion-input formControlName="address" labelPlacement="floating" label="Endereço" type="text"></ion-input>
@@ -28,7 +54,7 @@
     </ion-list>
   </form>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [disabled]="PlayForm.invalid">
+    <ion-fab-button [disabled]="PlayForm.invalid" (click)="save()">
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
   </ion-fab>

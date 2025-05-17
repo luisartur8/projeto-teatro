@@ -1,7 +1,7 @@
 export type Play = {
-  id?: string,
+  id?: number,
   name: string,
-  synopsis: string,
+  synopsis: string | null,
   gender: string,
   address: string,
   capacity: number,
