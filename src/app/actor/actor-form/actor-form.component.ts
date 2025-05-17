@@ -6,6 +6,7 @@ import { ApplicationUrlValidators } from 'src/app/core/validators/url.validator'
 import { ApplicationDateValidators } from 'src/app/core/validators/date.validator';
 import { ApplicationEmailValidators } from 'src/app/core/validators/email.validator';
 import { ActorService } from '../services/actor.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-actor-form',
@@ -45,7 +46,7 @@ export class ActorFormComponent implements OnInit {
     biography: new FormControl('')
   });
 
-  constructor(private actorService: ActorService) { }
+  constructor(private actorService: ActorService, private router: Router) { }
 
   ngOnInit() { }
 
@@ -58,5 +59,6 @@ export class ActorFormComponent implements OnInit {
     let { value } = this.actorForm;
     value.birthDate = parseDateMask(value.birthDate)
     this.actorService.add(value);
+    this.router.navigate(['/actor']);
   }
 }

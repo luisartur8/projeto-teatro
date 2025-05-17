@@ -21,9 +21,13 @@
     @for(theater of theaterList; track theater.name) {
     <ion-item>
       <ion-thumbnail slot="start">
+        @if(theater.image) {
         <img [src]="theater.image" />
+        } @else {
+        <img src="https://placehold.co/400" />
+        }
       </ion-thumbnail>
-      <ion-text>
+      <ion-text class="theater-info">
         <h2>{{ theater.name }}</h2>
         <h3><strong>Telefone: </strong> {{ theater.phone }} </h3>
         <h3><strong>Email: </strong> {{ theater.email }} </h3>
@@ -31,6 +35,14 @@
         <h4><strong>Fundação: </strong> {{theater.foundation | date: 'dd/MM/yyyy' }}</h4>
         <h4><strong>Capacidade: </strong> {{theater.capacity }}</h4>
         <h4><strong>Website:</strong> {{theater.website }}</h4>
+        <ion-button size="small">
+          <ion-icon name="create" slot="start"></ion-icon>
+          Editar
+        </ion-button>
+        <ion-button size="small" (click)="remove(theater)">
+          <ion-icon name="trash" slot="end"></ion-icon>
+          Excluir
+        </ion-button>
       </ion-text>
     </ion-item>
     }

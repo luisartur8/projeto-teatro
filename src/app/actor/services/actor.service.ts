@@ -8,6 +8,7 @@ export class ActorService {
 
   private actorList: Actor[] = [
     {
+      id: 1,
       name: "Rogerio",
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3gmv4VKSDNsinlRo0hh1CPLhGZlw92tZpjQ&s',
       phone: '(48) 98888-8888',
@@ -17,6 +18,7 @@ export class ActorService {
       biography: 'Joga muito'
     },
     {
+      id: 2,
       name: "Maria",
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3gmv4VKSDNsinlRo0hh1CPLhGZlw92tZpjQ&s',
       phone: '(48) 91111-1111',
@@ -26,6 +28,7 @@ export class ActorService {
       biography: 'Sabe muito'
     },
     {
+      id: 3,
       name: "Guilherme",
       image: 'https://m.media-amazon.com/images/I/61M3rDwh4qL._h1_.png',
       phone: '(21) 98765-4321',
@@ -42,8 +45,12 @@ export class ActorService {
     return [...this.actorList];
   }
 
-  add(game: Actor) {
-    this.actorList = [...this.actorList, game];
+  add(actor: Actor) {
+    this.actorList = [...this.actorList, actor];
+  }
+
+  remove(actor: Actor) {
+    this.actorList = this.actorList.filter(g => g.id !== actor.id);
   }
 
 }

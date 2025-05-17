@@ -6,6 +6,7 @@ import { ApplicationUrlValidators } from 'src/app/core/validators/url.validator'
 import { ApplicationDateValidators } from 'src/app/core/validators/date.validator';
 import { TheaterService } from '../services/theater.service';
 import { ApplicationEmailValidators } from 'src/app/core/validators/email.validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-theater-form',
@@ -50,7 +51,7 @@ export class TheaterFormComponent implements OnInit {
     ])
   });
 
-  constructor(private theaterService: TheaterService) { }
+  constructor(private theaterService: TheaterService, private router: Router) { }
 
   ngOnInit() { }
 
@@ -63,5 +64,6 @@ export class TheaterFormComponent implements OnInit {
     let { value } = this.theaterForm;
     value.foundation = parseDateMask(value.foundation)
     this.theaterService.add(value);
+    this.router.navigate(['/theater']);
   }
 }

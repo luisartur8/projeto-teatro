@@ -20,15 +20,27 @@
     @for(actor of actorList; track actor.name) {
     <ion-item>
       <ion-thumbnail slot="start">
+        @if(actor.image) {
         <img [src]="actor.image" />
+        } @else {
+        <img src="https://placehold.co/400" />
+        }
       </ion-thumbnail>
-      <ion-text>
+      <ion-text class="actor-info">
         <h2>{{ actor.name }}</h2>
         <h3><strong>Telefone: </strong> {{ actor.phone }} </h3>
         <h4><strong>Aniversário: </strong> {{ actor.birthDate | date: 'dd/MM/yyyy' }}</h4>
         <h4><strong>Email: </strong> {{ actor.email }}</h4>
         <h4><strong>Genero: </strong> {{ actor.gender }}</h4>
         <h4><strong>Biografia: </strong> {{ actor.biography }}</h4>
+        <ion-button size="small">
+          <ion-icon name="create" slot="start"></ion-icon>
+          Editar
+        </ion-button>
+        <ion-button size="small" (click)="remove(actor)">
+          <ion-icon name="trash" slot="end"></ion-icon>
+          Excluir
+        </ion-button>
       </ion-text>
     </ion-item>
     }

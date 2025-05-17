@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Theater } from './models/theater.type';
 import { TheaterService } from './services/theater.service';
-import { ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
+import { AlertController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
 
 @Component({
   selector: 'app-theater',
@@ -9,11 +9,11 @@ import { ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic
   styleUrls: ['./theater.page.scss'],
   standalone: false
 })
-export class TheaterPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave {
+export class TheaterPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave, ViewDidEnter, ViewWillLeave, ViewDidLeave {
 
   theaterList: Theater[] = []
 
-  constructor(private theaterService: TheaterService) { }
+  constructor(private theaterService: TheaterService, private alertController: AlertController) { }
 
   ionViewDidLeave(): void {
     console.log('ionViewDidLeave');
@@ -29,7 +29,23 @@ export class TheaterPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWil
     this.theaterList = this.theaterService.getList();
   }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  remove(theater: Theater) {
+    this.alertController.create({
+      header: 'Exclusão',
+      message: `Confirma a exclusão do teatro ${theater.name}?`,
+      buttons: [
+        {
+          text: 'Sim',
+          handler: () => {
+            this.theaterService.remove(theater);
+            this.theaterList = this.theaterService.getList();
+          }
+        },
+        'Não'
+      ]
+    }).then(alert => alert.present());
   }
 
 }
