@@ -13,7 +13,7 @@ export class PlayFormComponent implements OnInit {
 
   PlayForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]),   
-    adress: new FormControl(''),
+    address: new FormControl(''),
     capacity: new FormControl(''),
     gender: new FormControl('' ),
     synopsis: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(100)])

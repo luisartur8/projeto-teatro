@@ -1,10 +1,14 @@
 import { MaskitoElementPredicate, MaskitoOptions } from "@maskito/core";
-import { maskitoDateOptionsGenerator, maskitoNumberOptionsGenerator } from "@maskito/kit";
+import { maskitoDateOptionsGenerator, maskitoNumberOptionsGenerator, maskitoParseDate } from "@maskito/kit";
 
 const dateMask = maskitoDateOptionsGenerator({ mode: 'dd/mm/yyyy', separator: '/' });
 const phoneMask: MaskitoOptions = {
   mask: ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
 };
+const parseDateMask = (date: string) => {
+  return maskitoParseDate(date, { mode: 'dd/mm/yyyy' })
+}
+const capacityMask = maskitoNumberOptionsGenerator({ min: 0, thousandSeparator: '.' })
 const priceMask = maskitoNumberOptionsGenerator({
   decimalSeparator: ',',
   min: 10,
@@ -17,7 +21,9 @@ const maskitoElement: MaskitoElementPredicate = async (el) =>
 
 export {
   dateMask,
+  capacityMask,
   priceMask,
   phoneMask,
+  parseDateMask,
   maskitoElement,
 }

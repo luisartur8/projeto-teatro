@@ -7,5 +7,5 @@ export type Theater = {
   foundation: Date,
   address: string,
   capacity: number,
-  website: string,
+  website: string | null,
 }

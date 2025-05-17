@@ -6,7 +6,7 @@ import { Theater } from '../models/theater.type';
 })
 export class TheaterService {
 
-  theaterList: Theater[] = [
+  private theaterList: Theater[] = [
     {
       name: 'Casa rosa',
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3gmv4VKSDNsinlRo0hh1CPLhGZlw92tZpjQ&s',
@@ -30,4 +30,13 @@ export class TheaterService {
   ]
 
   constructor() { }
+
+  getList() {
+    return [...this.theaterList];
+  }
+
+  add(game: Theater) {
+    this.theaterList = [...this.theaterList, game];
+  }
+
 }

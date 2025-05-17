@@ -6,7 +6,7 @@ import { Actor } from "../models/actor.type";
 })
 export class ActorService {
 
-  actorList: Actor[] = [
+  private actorList: Actor[] = [
     {
       name: "Rogerio",
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3gmv4VKSDNsinlRo0hh1CPLhGZlw92tZpjQ&s',
@@ -37,5 +37,13 @@ export class ActorService {
   ]
 
   constructor() { }
+
+  getList() {
+    return [...this.actorList];
+  }
+
+  add(game: Actor) {
+    this.actorList = [...this.actorList, game];
+  }
 
 }
