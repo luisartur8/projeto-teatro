@@ -3,52 +3,84 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Teatro - Teatro (titulo 1)</ion-title>
+    <ion-title>Teatros - Teatros</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Teatro - Teatro (titulo 2)</ion-title>
+      <ion-title size="large">Teatros - Teatros</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-list>
     <ion-list-header>
-      <ion-label>Lista de Teatros</ion-label>
+      <ion-label class="titulo">Lista de Teatros</ion-label>
     </ion-list-header>
-    @for(theater of theaterList; track theater.name) {
-    <ion-item>
-      <ion-thumbnail slot="start">
-        @if(theater.image) {
-        <img [src]="theater.image" />
-        } @else {
-        <img src="https://placehold.co/400" />
-        }
-      </ion-thumbnail>
-      <ion-text class="theater-info">
-        <h2>{{ theater.id }} - {{ theater.name }}</h2>
-        <h3><strong>Telefone: </strong> {{ theater.phone }} </h3>
-        <h3><strong>Email: </strong> {{ theater.email }} </h3>
-        <h3><strong>Endereço: </strong> {{ theater.address }} </h3>
-        <h4><strong>Fundação: </strong> {{theater.foundation | date: 'dd/MM/yyyy' }}</h4>
-        <h4><strong>Capacidade: </strong> {{theater.capacity }}</h4>
-        <h4><strong>Website:</strong> {{theater.website }}</h4>
-        <ion-button size="small" [routerLink]="['edit', theater.id]">
-          <ion-icon name="create" slot="start"></ion-icon>
-          Editar
-        </ion-button>
-        <ion-button size="small" (click)="remove(theater)">
-          <ion-icon name="trash" slot="end"></ion-icon>
-          Excluir
-        </ion-button>
-      </ion-text>
-    </ion-item>
-    }
-    @empty {
-    <ion-item>Lista de teatros vazia, cadastre um novo teatro!</ion-item>
-    }
+    <div class="card-container">
+      @for(theater of theaterList; track theater.name) {
+      <div class="card">
+        <div class="foto-nome">
+          <ion-thumbnail slot="start">
+            @if(theater.image) {
+            <img [src]="theater.image" />
+            } @else {
+            <img src="../core/images/default-avatar.png" />
+            }
+          </ion-thumbnail>
+          <div class="nome-idade">
+            <h2>{{ theater.name }}</h2>
+            <h3>{{ theater.phone }}</h3>
+          </div>
+        </div>
+        <ion-text class="theater-info">
+          <table>
+            <tbody>
+              <tr>
+                <td class="label">Email</td>
+                <td class="value">{{ theater.email }}</td>
+              </tr>
+              <tr>
+                <td class="label">Fundação</td>
+                <td class="value">{{ theater.foundation | date: 'dd/MM/yyyy' }}</td>
+              </tr>
+              <tr>
+                <td class="label">Endereço</td>
+                <td class="value">{{ theater.address }}</td>
+              </tr>
+              <tr>
+                <td class="label">Capacidade</td>
+                <td class="value">{{ theater.capacity }}</td>
+              </tr>
+              <tr>
+                <td class="label">Site</td>
+                <td class="value value-biograpgy">{{ theater.website }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="button-container">
+            <ion-button size="small" [routerLink]="['edit', theater.id]">
+              <ion-icon name="create" slot="start"></ion-icon>
+              Editar
+            </ion-button>
+            <ion-button size="small" (click)="remove(theater)">
+              <ion-icon name="trash" slot="end"></ion-icon>
+              Excluir
+            </ion-button>
+          </div>
+        </ion-text>
+      </div>
+      }
+      @empty {
+      <div class="lista-vazia">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <ion-item>Lista de diretores vazia, cadastre um novo Diretor!</ion-item>
+      </div>
+      }
+      <div class="add-item-container" [routerLink]="['new']">
+        <img class="add-item-image" src="assets/icon/add-gray-icon.png" alt="adicionar">
+      </div>
+    </div>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['new']">

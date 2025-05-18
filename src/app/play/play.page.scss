@@ -1,15 +1,161 @@
-h2, h3, h4 {
-  display: block;
-  margin: 0.25rem;
+.titulo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  padding: 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #3B82F6;
+  margin-bottom: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-ul {
-  list-style: none;
-  padding-inline-start: 0;
-  padding-bottom: 1rem;
+ion-toolbar {
+  background-color: white;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.card {
+  flex: 0 0 calc(33.333% - 32px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-height: 500px;
+  overflow: hidden;
+  background-color: #001C55;
+}
+
+
+ion-thumbnail {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+ion-thumbnail img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.foto-nome {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: #0A2472;
+  padding: 10px;
+}
+
+.nome-idade {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  color: white;
+}
+
+.nome-idade h2,
+.nome-idade h3 {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  margin: 10px;
+}
+
+td.label {
+  font-weight: bold;
+  padding-right: 8px;
+  text-align: right;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+td.value {
+  padding-left: 8px;
+  text-align: left;
+  word-break: break-word;
+}
+
+.value-biograpgy {
+  display: block;
+  max-height: 100px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding-right: 4px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+ion-button {
+  background-color: #0A2472;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.lista-vazia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  margin: 20px;
+  color: #666;
+}
+
+.lista-vazia ion-icon {
+  font-size: 40px;
+  color: #3B82F6;
+  margin-bottom: 10px;
+}
+
+.lista-vazia ion-item {
+  font-size: 16px;
   margin: 0;
 }
 
-h2 {
-  padding-top: 1rem;
+.add-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #47606A;
+  width: 200px;
+  min-height: 250px;
+  max-height: 500px;
+  cursor: pointer;
+}
+
+.add-item-image {
+  width: 64px;
+  height: 64px;
 }

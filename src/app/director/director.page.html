@@ -3,67 +3,67 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Teatro - Atores</ion-title>
+    <ion-title>Diretores - Diretores</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Teatro - Atores</ion-title>
+      <ion-title size="large">Diretores - Diretores</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-list>
     <ion-list-header>
-      <ion-label class="titulo">Lista de Atores</ion-label>
+      <ion-label class="titulo">Lista de Diretores</ion-label>
     </ion-list-header>
     <div class="card-container">
-      @for(actor of actorList; track actor.name) {
+      @for(director of directorList; track director.name) {
       <div class="card">
         <div class="foto-nome">
           <ion-thumbnail slot="start">
-            @if(actor.image) {
-            <img [src]="actor.image" />
+            @if(director.image) {
+            <img [src]="director.image" />
             } @else {
             <img src="../core/images/default-avatar.png" />
             }
           </ion-thumbnail>
           <div class="nome-idade">
-            <h2>{{ actor.name }}</h2>
-            <h3>{{ getAge(actor.birthDate) }} anos</h3>
+            <h2>{{ director.name }}</h2>
+            <h3>{{ getAge(director.birthDate) }} anos</h3>
           </div>
         </div>
-        <ion-text class="actor-info">
+        <ion-text class="director-info">
           <table>
             <tbody>
               <tr>
                 <td class="label">Telefone</td>
-                <td class="value">{{ actor.phone }}</td>
+                <td class="value">{{ director.phone }}</td>
               </tr>
               <tr>
                 <td class="label">Aniversário</td>
-                <td class="value">{{ actor.birthDate | date: 'dd/MM/yyyy' }}</td>
+                <td class="value">{{ director.birthDate | date: 'dd/MM/yyyy' }}</td>
               </tr>
               <tr>
                 <td class="label">Email</td>
-                <td class="value">{{ actor.email }}</td>
+                <td class="value">{{ director.email }}</td>
               </tr>
               <tr>
                 <td class="label">Gênero</td>
-                <td class="value">{{ actor.gender }}</td>
+                <td class="value">{{ director.gender }}</td>
               </tr>
               <tr>
                 <td class="label">Biografia</td>
-                <td class="value value-biograpgy">{{ actor.biography }}</td>
+                <td class="value value-biograpgy">{{ director.biography }}</td>
               </tr>
             </tbody>
           </table>
           <div class="button-container">
-            <ion-button size="small" [routerLink]="['edit', actor.id]">
+            <ion-button size="small" [routerLink]="['edit', director.id]">
               <ion-icon name="create" slot="start"></ion-icon>
               Editar
             </ion-button>
-            <ion-button size="small" (click)="remove(actor)">
+            <ion-button size="small" (click)="remove(director)">
               <ion-icon name="trash" slot="end"></ion-icon>
               Excluir
             </ion-button>
@@ -74,7 +74,7 @@
       @empty {
       <div class="lista-vazia">
         <ion-icon name="information-circle-outline"></ion-icon>
-        <ion-item>Lista de atores vazia, cadastre um novo ator!</ion-item>
+        <ion-item>Lista de diretores vazia, cadastre um novo Diretor!</ion-item>
       </div>
       }
       <div class="add-item-container" [routerLink]="['new']">

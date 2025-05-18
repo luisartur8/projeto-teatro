@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'actor',
     loadChildren: () => import('./actor/actor.module').then( m => m.ActorPageModule)
+  },
+  {
+    path: 'director',
+    loadChildren: () => import('./director/director.module').then( m => m.DirectorPageModule)
   }
 ];
 
