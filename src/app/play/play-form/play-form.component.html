@@ -34,6 +34,17 @@
         </p>
       </ion-item>
       <ion-item>
+        <ion-input formControlName="image" labelPlacement="floating" label="Logo (URL) *" type="url"></ion-input>
+        <p>
+          @if(hasError('image', 'required')) {
+            O campo é obrigatório
+          }
+          @if(hasError('image', 'invalidUrl')) {
+            O campo de logo deve ser uma URL válida
+          }
+        </p>
+      </ion-item>
+      <ion-item>
         <ion-input formControlName="gender" labelPlacement="floating" label="Gênero" type="text"></ion-input>
         <p>          
           @if(hasError('gender', 'minlength')) {
