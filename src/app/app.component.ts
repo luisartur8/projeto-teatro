@@ -7,11 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Home', url: '/home', icon: 'game-controller' },
-    { title: 'Teatros', url: '/theater', icon: 'game-controller' },
-    { title: 'Peças', url: '/play', icon: 'game-controller' },
-    { title: 'Atores', url: '/actor', icon: 'game-controller' },
-    { title: 'Configuração', url: '/configuration', icon: 'game-controller' },
+    { title: 'Home', url: '/home', icon: 'home' },
+    { title: 'Teatros', url: '/theater', icon: 'extension-puzzle' },
+    { title: 'Peças', url: '/play', icon: 'musical-notes' },
+    { title: 'Atores', url: '/actor', icon: 'person' },
+    { title: 'Configuração', url: '/configuration', icon: 'settings' },
   ];
   constructor() {}
 }

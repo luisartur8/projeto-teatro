@@ -3,50 +3,84 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Teatro - Ator (titulo 1)</ion-title>
+    <ion-title>Teatro - Atores</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Teatro - Ator (titulo 2)</ion-title>
+      <ion-title size="large">Teatro - Atores</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-list>
     <ion-list-header>
-      <ion-label>Lista de Atores</ion-label>
+      <ion-label class="titulo">Lista de Atores</ion-label>
     </ion-list-header>
-    @for(actor of actorList; track actor.name) {
-    <ion-item>
-      <ion-thumbnail slot="start">
-        @if(actor.image) {
-        <img [src]="actor.image" />
-        } @else {
-        <img src="https://placehold.co/400" />
-        }
-      </ion-thumbnail>
-      <ion-text class="actor-info">
-        <h2>{{ actor.id }} - {{ actor.name }}</h2>
-        <h3><strong>Telefone: </strong> {{ actor.phone }} </h3>
-        <h4><strong>Aniversário: </strong> {{ actor.birthDate | date: 'dd/MM/yyyy' }}</h4>
-        <h4><strong>Email: </strong> {{ actor.email }}</h4>
-        <h4><strong>Genero: </strong> {{ actor.gender }}</h4>
-        <h4><strong>Biografia: </strong> {{ actor.biography }}</h4>
-        <ion-button size="small" [routerLink]="['edit', actor.id]">
-          <ion-icon name="create" slot="start"></ion-icon>
-          Editar
-        </ion-button>
-        <ion-button size="small" (click)="remove(actor)">
-          <ion-icon name="trash" slot="end"></ion-icon>
-          Excluir
-        </ion-button>
-      </ion-text>
-    </ion-item>
-    }
-    @empty {
-    <ion-item>Lista de atores vazia, cadastre um novo ator!</ion-item>
-    }
+    <div class="card-container">
+      @for(actor of actorList; track actor.name) {
+      <div class="card">
+        <div class="foto-nome">
+          <ion-thumbnail slot="start">
+            @if(actor.image) {
+            <img [src]="actor.image" />
+            } @else {
+            <img src="../core/images/default-avatar.png" />
+            }
+          </ion-thumbnail>
+          <div class="nome-idade">
+            <h2>{{ actor.name }}</h2>
+            <h3>{{ getAge(actor.birthDate) }} anos</h3>
+          </div>
+        </div>
+        <ion-text class="actor-info">
+          <table>
+            <tbody>
+              <tr>
+                <td class="label">Telefone</td>
+                <td class="value">{{ actor.phone }}</td>
+              </tr>
+              <tr>
+                <td class="label">Aniversário</td>
+                <td class="value">{{ actor.birthDate | date: 'dd/MM/yyyy' }}</td>
+              </tr>
+              <tr>
+                <td class="label">Email</td>
+                <td class="value">{{ actor.email }}</td>
+              </tr>
+              <tr>
+                <td class="label">Gênero</td>
+                <td class="value">{{ actor.gender }}</td>
+              </tr>
+              <tr>
+                <td class="label">Biografia</td>
+                <td class="value value-biograpgy">{{ actor.biography }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="button-container">
+            <ion-button size="small" [routerLink]="['edit', actor.id]">
+              <ion-icon name="create" slot="start"></ion-icon>
+              Editar
+            </ion-button>
+            <ion-button size="small" (click)="remove(actor)">
+              <ion-icon name="trash" slot="end"></ion-icon>
+              Excluir
+            </ion-button>
+          </div>
+        </ion-text>
+      </div>
+      }
+      @empty {
+      <div class="lista-vazia">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <ion-item>Lista de atores vazia, cadastre um novo ator!</ion-item>
+      </div>
+      }
+      <div class="add-item-container" [routerLink]="['new']">
+        <img class="add-item-image" src="assets/icon/add-gray-icon.png" alt="adicionar">
+      </div>
+    </div>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['new']">
