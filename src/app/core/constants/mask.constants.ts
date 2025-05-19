@@ -1,5 +1,5 @@
 import { MaskitoElementPredicate, MaskitoOptions } from "@maskito/core";
-import { maskitoDateOptionsGenerator, maskitoNumberOptionsGenerator, maskitoParseDate, maskitoStringifyDate } from "@maskito/kit";
+import { MaskitoDateMode, maskitoDateOptionsGenerator, maskitoNumberOptionsGenerator, maskitoParseDate, maskitoStringifyDate } from "@maskito/kit";
 
 const dateMask = maskitoDateOptionsGenerator({ mode: 'dd/mm/yyyy', separator: '/' });
 
@@ -7,8 +7,8 @@ const phoneMask: MaskitoOptions = {
   mask: ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
 }
 
-const parseDateMask = (date: string) => {
-  return maskitoParseDate(date, { mode: 'dd/mm/yyyy' })
+const parseDateMask = (date: string, mode: MaskitoDateMode = 'dd/mm/yyyy') => {
+  return maskitoParseDate(date, { mode })
 }
 
 const formatDateMask = (date: Date) => {

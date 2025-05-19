@@ -7,6 +7,7 @@ import { ApplicationDateValidators } from 'src/app/core/validators/date.validato
 import { ApplicationEmailValidators } from 'src/app/core/validators/email.validator';
 import { DirectorService } from '../services/director.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-director-form',
@@ -57,17 +58,28 @@ export class DirectorFormComponent implements OnInit {
   });
   directorId!: number;
 
-  constructor(private directorService: DirectorService, private router: Router, private activatedRoute: ActivatedRoute) {
-    const directorId = parseInt(this.activatedRoute.snapshot.params['directorId']);
+  constructor(private directorService: DirectorService, private router: Router, private activatedRoute: ActivatedRoute, private toastController: ToastController) {
+    const directorId = this.activatedRoute.snapshot.params['directorId'];
     if (directorId) {
-      const director = this.directorService.getById(directorId);
-      if (director) {
-        this.directorId = directorId;
-        if (director.birthDate instanceof Date) {
-          director.birthDate = formatDateMask(director.birthDate);
+      this.directorService.getById(directorId).subscribe({
+        next: (director) => {
+          if (director) {
+            this.directorId = directorId;
+            if (director.birthDate instanceof Date) {
+              director.birthDate = formatDateMask(director.birthDate);
+            }
+            if (typeof director.birthDate === 'string') {
+              const parsedDate = parseDateMask(director.birthDate, 'yyyy/mm/dd');
+              director.birthDate = parsedDate ? formatDateMask(parsedDate) : '';
+            }
+            this.directorForm.patchValue(director);
+          }
+        },
+        error: (error) => {
+          alert('Erro ao carregar o diretor com id ' + directorId)
+          console.error(error);
         }
-        this.directorForm.patchValue(director);
-      }
+      });
     }
   }
 
@@ -86,7 +98,18 @@ export class DirectorFormComponent implements OnInit {
     this.directorService.save({
       ...value,
       id: this.directorId
+    }).subscribe({
+      next: () => {
+        this.toastController.create({
+          message: 'Diretor salvo com sucesso!',
+          duration: 3000,
+        }).then(toast => toast.present());
+        this.router.navigate(['/director']);
+      },
+      error: (error) => {
+        alert('Erro ao salvar o diretor ' + value.name + '!');
+        console.error(error);
+      }
     });
-    this.router.navigate(['/director']);
   }
 }

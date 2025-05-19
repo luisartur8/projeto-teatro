@@ -7,6 +7,7 @@ import { ApplicationDateValidators } from 'src/app/core/validators/date.validato
 import { TheaterService } from '../services/theater.service';
 import { ApplicationEmailValidators } from 'src/app/core/validators/email.validator';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-theater-form',
@@ -50,19 +51,30 @@ export class TheaterFormComponent implements OnInit {
       ApplicationUrlValidators.urlValidator
     ])
   });
-  theaterId!: number;
+  theaterId!: string;
 
-  constructor(private theaterService: TheaterService, private router: Router, private activatedRoute: ActivatedRoute) {
-    const theaterId = parseInt(this.activatedRoute.snapshot.params['theaterId']);
+  constructor(private theaterService: TheaterService, private router: Router, private activatedRoute: ActivatedRoute, private toastController: ToastController) {
+    const theaterId = this.activatedRoute.snapshot.params['theaterId'];
     if (theaterId) {
-      const theater = this.theaterService.getById(theaterId);
-      if (theater) {
-        this.theaterId = theaterId;
-        if (theater.foundation instanceof Date) {
-          theater.foundation = formatDateMask(theater.foundation);
+      this.theaterService.getById(theaterId).subscribe({
+        next: (theater) => {
+          if (theater) {
+            this.theaterId = theaterId;
+            if (theater.foundation instanceof Date) {
+              theater.foundation = formatDateMask(theater.foundation);
+            }
+            if (typeof theater.foundation === 'string') {
+              const parsedDate = parseDateMask(theater.foundation, 'yyyy/mm/dd');
+              theater.foundation = parsedDate ? formatDateMask(parsedDate) : '';
+            }
+            this.theaterForm.patchValue(theater);
+          }
+        },
+        error: (error) => {
+          alert('Erro ao carregar o teatro com id ' + theaterId)
+          console.error(error);
         }
-        this.theaterForm.patchValue(theater);
-      }
+      });
     }
   }
 
@@ -81,7 +93,18 @@ export class TheaterFormComponent implements OnInit {
     this.theaterService.save({
       ...value,
       id: this.theaterId
+    }).subscribe({
+      next: () => {
+        this.toastController.create({
+          message: 'Teatro salvo com sucesso!',
+          duration: 3000,
+        }).then(toast => toast.present());
+        this.router.navigate(['/theater']);
+      },
+      error: (error) => {
+        alert('Erro ao salvar o teatro ' + value.name + '!');
+        console.error(error);
+      }
     });
-    this.router.navigate(['/theater']);
   }
 }

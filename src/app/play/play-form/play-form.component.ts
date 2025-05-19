@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { capacityMask, dateMask, maskitoElement, phoneMask } from 'src/app/core/constants/mask.constants';
-import { ApplicationPhoneValidators } from 'src/app/core/validators/phone.validator';
+import { capacityMask, maskitoElement, phoneMask } from 'src/app/core/constants/mask.constants';
 import { ApplicationUrlValidators } from 'src/app/core/validators/url.validator';
-import { ApplicationDateValidators } from 'src/app/core/validators/date.validator';
 import { PlayService } from '../services/play.service';
-import { ApplicationEmailValidators } from 'src/app/core/validators/email.validator';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+
 @Component({
   selector: 'app-play-form',
   templateUrl: './play-form.component.html',
@@ -25,24 +24,31 @@ export class PlayFormComponent implements OnInit {
       ApplicationUrlValidators.urlValidator
     ]),
     capacity: new FormControl(''),
-    gender: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)] ),
+    gender: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     synopsis: new FormControl('', [Validators.required, Validators.minLength(100), Validators.maxLength(255)])
   });
   playId!: number;
-  
-  constructor(private playService: PlayService, private router: Router, private activatedRoute: ActivatedRoute) {
-    const playId = parseInt(this.activatedRoute.snapshot.params['playId']);
+
+  constructor(private playService: PlayService, private router: Router, private activatedRoute: ActivatedRoute, private toastController: ToastController) {
+    const playId = this.activatedRoute.snapshot.params['playId'];
     if (playId) {
-      const play = this.playService.getById(playId);
-      if (play) {
-        this.playId = playId;        
-        this.PlayForm.patchValue(play);
-      }
+      this.playService.getById(playId).subscribe({
+        next: (play) => {
+          if (play) {
+            this.playId = playId;
+            this.PlayForm.patchValue(play);
+          }
+        },
+        error: (error) => {
+          alert('Erro ao carregar o peça com id ' + playId)
+          console.error(error);
+        }
+      });
     }
   }
 
   ngOnInit() { }
-  
+
   hasError(field: string, error: string) {
     const formControl = this.PlayForm.get(field);
     return formControl?.touched && formControl?.errors?.[error]
@@ -50,11 +56,22 @@ export class PlayFormComponent implements OnInit {
 
   save() {
     let { value } = this.PlayForm;
-    
+
     this.playService.save({
       ...value,
       id: this.playId
+    }).subscribe({
+      next: () => {
+        this.toastController.create({
+          message: 'Peça salvo com sucesso!',
+          duration: 3000,
+        }).then(toast => toast.present());
+        this.router.navigate(['/play']);
+      },
+      error: (error) => {
+        alert('Erro ao salvar a peça ' + value.name + '!');
+        console.error(error);
+      }
     });
-    this.router.navigate(['/play']);
   }
 }

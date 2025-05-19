@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Actor } from './models/actor.type';
 import { ActorService } from './services/actor.service';
-import { AlertController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
+import { AlertController, ToastController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
 
 @Component({
   selector: 'app-actor',
@@ -13,7 +13,7 @@ export class ActorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
 
   actorList: Actor[] = []
 
-  constructor(private actorService: ActorService, private alertController: AlertController) { }
+  constructor(private actorService: ActorService, private alertController: AlertController, private toastController: ToastController,) { }
 
   ionViewDidLeave(): void {
     console.log('ionViewDidLeave');
@@ -26,7 +26,15 @@ export class ActorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
   }
   ionViewWillEnter(): void {
     console.log('ionViewWillEnter');
-    this.actorList = this.actorService.getList();
+    this.actorService.getList().subscribe({
+      next: (response) => {
+        this.actorList = response;
+      },
+      error: (error) => {
+        alert('Erro ao carregar lista de jogos');
+        console.error(error);
+      }
+    });
   }
 
   ngOnInit() { }
@@ -39,8 +47,21 @@ export class ActorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
         {
           text: 'Sim',
           handler: () => {
-            this.actorService.remove(actor);
-            this.actorList = this.actorService.getList();
+            this.actorService.remove(actor).subscribe({
+              next: (response) => {
+                this.actorList = this.actorList.filter(g => g.id !== response.id);
+                this.toastController.create({
+                  message: `Ator ${actor.name} excluído com sucesso!`,
+                  duration: 3000,
+                  color: 'secondary',
+                  keyboardClose: true,
+                }).then(toast => toast.present());
+              },
+              error: (error) => {
+                alert('Erro ao excluir o ator ' + actor.name);
+                console.error(error);
+              }
+            });
           }
         },
         'Não'

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Theater } from './models/theater.type';
 import { TheaterService } from './services/theater.service';
-import { AlertController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
+import { AlertController, ToastController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
 
 @Component({
   selector: 'app-theater',
@@ -13,7 +13,7 @@ export class TheaterPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWil
 
   theaterList: Theater[] = []
 
-  constructor(private theaterService: TheaterService, private alertController: AlertController) { }
+  constructor(private theaterService: TheaterService, private alertController: AlertController, private toastController: ToastController,) { }
 
   ionViewDidLeave(): void {
     console.log('ionViewDidLeave');
@@ -26,7 +26,15 @@ export class TheaterPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWil
   }
   ionViewWillEnter(): void {
     console.log('ionViewWillEnter');
-    this.theaterList = this.theaterService.getList();
+    this.theaterService.getList().subscribe({
+      next: (response) => {
+        this.theaterList = response;
+      },
+      error: (error) => {
+        alert('Erro ao carregar lista de teatros');
+        console.error(error);
+      }
+    });
   }
 
   ngOnInit() { }
@@ -39,8 +47,21 @@ export class TheaterPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWil
         {
           text: 'Sim',
           handler: () => {
-            this.theaterService.remove(theater);
-            this.theaterList = this.theaterService.getList();
+            this.theaterService.remove(theater).subscribe({
+              next: (response) => {
+                this.theaterList = this.theaterList.filter(g => g.id !== response.id);
+                this.toastController.create({
+                  message: `Teatro ${theater.name} excluído com sucesso!`,
+                  duration: 3000,
+                  color: 'secondary',
+                  keyboardClose: true,
+                }).then(toast => toast.present());
+              },
+              error: (error) => {
+                alert('Erro ao excluir o teatro ' + theater.name);
+                console.error(error);
+              }
+            });
           }
         },
         'Não'

@@ -7,6 +7,7 @@ import { ApplicationDateValidators } from 'src/app/core/validators/date.validato
 import { ApplicationEmailValidators } from 'src/app/core/validators/email.validator';
 import { ActorService } from '../services/actor.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-actor-form',
@@ -47,17 +48,34 @@ export class ActorFormComponent implements OnInit {
   });
   actorId!: number;
 
-  constructor(private actorService: ActorService, private router: Router, private activatedRoute: ActivatedRoute) {
-    const actorId = parseInt(this.activatedRoute.snapshot.params['actorId']);
+  constructor(
+    private actorService: ActorService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private toastController: ToastController
+  ) {
+    const actorId = this.activatedRoute.snapshot.params['actorId'];
+
     if (actorId) {
-      const actor = this.actorService.getById(actorId);
-      if (actor) {
-        this.actorId = actorId;
-        if (actor.birthDate instanceof Date) {
-          actor.birthDate = formatDateMask(actor.birthDate);
+      this.actorService.getById(actorId).subscribe({
+        next: (actor) => {
+          if (actor) {
+            this.actorId = actorId;
+            if (actor.birthDate instanceof Date) {
+              actor.birthDate = formatDateMask(actor.birthDate);
+            }
+            if (typeof actor.birthDate === 'string') {
+              const parsedDate = parseDateMask(actor.birthDate, 'yyyy/mm/dd');
+              actor.birthDate = parsedDate ? formatDateMask(parsedDate) : '';
+            }
+            this.actorForm.patchValue(actor);
+          }
+        },
+        error: (error) => {
+          alert('Erro ao carregar o ator com id ' + actorId)
+          console.error(error);
         }
-        this.actorForm.patchValue(actor);
-      }
+      });
     }
   }
 
@@ -76,7 +94,18 @@ export class ActorFormComponent implements OnInit {
     this.actorService.save({
       ...value,
       id: this.actorId
+    }).subscribe({
+      next: () => {
+        this.toastController.create({
+          message: 'Ator salvo com sucesso!',
+          duration: 3000,
+        }).then(toast => toast.present());
+        this.router.navigate(['/actor']);
+      },
+      error: (error) => {
+        alert('Erro ao salvar o ator ' + value.name + '!');
+        console.error(error);
+      }
     });
-    this.router.navigate(['/actor']);
   }
 }

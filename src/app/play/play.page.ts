@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Play } from './models/play.type';
 import { PlayService } from './services/play.service';
-import { AlertController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
+import { AlertController, ToastController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
 @Component({
   selector: 'app-play',
   templateUrl: './play.page.html',
   styleUrls: ['./play.page.scss'],
   standalone: false
 })
-export class PlayPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave, ViewDidEnter, ViewWillLeave, ViewDidLeave  {
+export class PlayPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave, ViewDidEnter, ViewWillLeave, ViewDidLeave {
 
   playList: Play[] = []
 
-  constructor(private playService: PlayService, private alertController: AlertController) {
-    this.playList = playService.playList
-  }
+  constructor(private playService: PlayService, private alertController: AlertController, private toastController: ToastController,) { }
+
   ionViewDidLeave(): void {
     console.log('ionViewDidLeave');
   }
@@ -26,26 +25,46 @@ export class PlayPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLe
   }
   ionViewWillEnter(): void {
     console.log('ionViewWillEnter');
-    this.playList = this.playService.getList();
+    this.playService.getList().subscribe({
+      next: (response) => {
+        this.playList = response;
+      },
+      error: (error) => {
+        alert('Erro ao carregar lista de peças');
+        console.error(error);
+      }
+    });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   remove(play: Play) {
-      this.alertController.create({
-        header: 'Exclusão',
-        message: `Confirma a exclusão da Peça ${play.name}?`,
-        buttons: [
-          {
-            text: 'Sim',
-            handler: () => {
-              this.playService.remove(play);
-              this.playList = this.playService.getList();
-            }
-          },
-          'Não'
-        ]
-      }).then(alert => alert.present());
-    }
+    this.alertController.create({
+      header: 'Exclusão',
+      message: `Confirma a exclusão da Peça ${play.name}?`,
+      buttons: [
+        {
+          text: 'Sim',
+          handler: () => {
+            this.playService.remove(play).subscribe({
+              next: (response) => {
+                this.playList = this.playList.filter(g => g.id !== response.id);
+                this.toastController.create({
+                  message: `Peça ${play.name} excluído com sucesso!`,
+                  duration: 3000,
+                  color: 'secondary',
+                  keyboardClose: true,
+                }).then(toast => toast.present());
+              },
+              error: (error) => {
+                alert('Erro ao excluir a peça ' + play.name);
+                console.error(error);
+              }
+            });
+          }
+        },
+        'Não'
+      ]
+    }).then(alert => alert.present());
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Director } from './models/director.type';
 import { DirectorService } from './services/director.service';
-import { AlertController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
+import { AlertController, ToastController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
 
 @Component({
   selector: 'app-director',
@@ -13,7 +13,7 @@ export class DirectorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
 
   directorList: Director[] = []
 
-  constructor(private directorService: DirectorService, private alertController: AlertController) { }
+  constructor(private directorService: DirectorService, private alertController: AlertController, private toastController: ToastController,) { }
 
   ionViewDidLeave(): void {
     console.log('ionViewDidLeave');
@@ -26,7 +26,15 @@ export class DirectorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
   }
   ionViewWillEnter(): void {
     console.log('ionViewWillEnter');
-    this.directorList = this.directorService.getList();
+    this.directorService.getList().subscribe({
+      next: (response) => {
+        this.directorList = response;
+      },
+      error: (error) => {
+        alert('Erro ao carregar lista de diretores');
+        console.error(error);
+      }
+    });
   }
 
   ngOnInit() { }
@@ -39,8 +47,21 @@ export class DirectorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
         {
           text: 'Sim',
           handler: () => {
-            this.directorService.remove(director);
-            this.directorList = this.directorService.getList();
+            this.directorService.remove(director).subscribe({
+              next: (response) => {
+                this.directorList = this.directorList.filter(g => g.id !== response.id);
+                this.toastController.create({
+                  message: `Diretor ${director.name} excluído com sucesso!`,
+                  duration: 3000,
+                  color: 'secondary',
+                  keyboardClose: true,
+                }).then(toast => toast.present());
+              },
+              error: (error) => {
+                alert('Erro ao excluir o diretor ' + director.name);
+                console.error(error);
+              }
+            });
           }
         },
         'Não'
