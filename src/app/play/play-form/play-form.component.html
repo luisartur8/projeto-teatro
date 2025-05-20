@@ -15,20 +15,23 @@
           @if(hasError('name', 'required')) {
             O campo é obrigatório
           }
-          @if(hasError('name', 'minlength')) {
+          @else if(hasError('name', 'minlength')) {
             O campo deve ter no mínimo 4 caracteres
           }
-          @if(hasError('name', 'maxlength')) {
+          @else if(hasError('name', 'maxlength')) {
             O campo deve ter no máximo 100 caracteres
           }        
       </ion-item>
       <ion-item>
         <ion-input formControlName="synopsis" labelPlacement="floating" label="Sinopse: " type="text"></ion-input>
-        <p>          
-          @if(hasError('synopsis', 'minlength')) {
+        <p>
+          @if(hasError('synopsis', 'required')) {
+            O campo é obrigatório
+          }
+          @else if(hasError('synopsis', 'minlength')) {
             O campo deve ter no mínimo 100 caracteres
           }
-          @if(hasError('synopsis', 'maxlength')) {
+          @else if(hasError('synopsis', 'maxlength')) {
             O campo deve ter no máximo 255 caracteres
           }
         </p>
@@ -39,18 +42,21 @@
           @if(hasError('image', 'required')) {
             O campo é obrigatório
           }
-          @if(hasError('image', 'invalidUrl')) {
+          @else if(hasError('image', 'invalidUrl')) {
             O campo de logo deve ser uma URL válida
           }
         </p>
       </ion-item>
       <ion-item>
         <ion-input formControlName="gender" labelPlacement="floating" label="Gênero" type="text"></ion-input>
-        <p>          
-          @if(hasError('gender', 'minlength')) {
+        <p>
+          @if(hasError('gender', 'required')) {
+            O campo é obrigatório
+          } 
+          @else if(hasError('gender', 'minlength')) {
             O campo deve ter no mínimo 4 caracteres
           }
-          @if(hasError('gender', 'maxlength')) {
+          @else if(hasError('gender', 'maxlength')) {
             O campo deve ter no máximo 20 caracteres
           }
         </p>

@@ -1,0 +1,83 @@
+.dashboard-wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  border: 0.5px solid #999;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 300px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.dashboard-row {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+}
+
+.bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.bar {
+  width: 60px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s ease-in-out;
+  color: white;
+  font-weight: bold;
+}
+
+.bar.homem {
+  background-color: #2196F3;
+}
+
+.bar.mulher {
+  background-color: #E91E63;
+}
+
+.bar-value {
+  padding-bottom: 5px;
+}
+
+.bar-label {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+
+.actor-table {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+
+.header-row {
+  background-color: #e0e0e0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.data-row {
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+ion-col {
+  padding: 10px 0;
+  font-size: 14px;
+}

@@ -11,8 +11,7 @@ export class AppComponent {
     { title: 'Teatros', url: '/theater', icon: 'extension-puzzle' },
     { title: 'Peças', url: '/play', icon: 'musical-notes' },
     { title: 'Atores', url: '/actor', icon: 'person' },
-    { title: 'Diretores', url: '/director', icon: 'person' },
-    { title: 'Configuração', url: '/configuration', icon: 'settings' },
+    { title: 'Diretores', url: '/director', icon: 'person' }
   ];
   constructor() {}
 }

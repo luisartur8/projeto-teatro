@@ -10,7 +10,50 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">home</ion-title>
+      <ion-title size="large">Home</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-item>
+    <ion-label>Ordenar por data de nascimento</ion-label>
+    <ion-select [(ngModel)]="selectedOrder" (ionChange)="onOrderChange()">
+      <ion-select-option value="asc">Mais velho</ion-select-option>
+      <ion-select-option value="desc">Mais novo</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-grid class="actor-table">
+    <ion-row class="header-row">
+      <ion-col size="4"><strong>Nome</strong></ion-col>
+      <ion-col size="4"><strong>Data Nascimento</strong></ion-col>
+      <ion-col size="4"><strong>Idade</strong></ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let actor of orderedActor" class="data-row">
+      <ion-col size="4">{{ actor.name }}</ion-col>
+      <ion-col size="4">{{ actor.birthDate | date:'dd/MM/yyyy' }}</ion-col>
+      <ion-col size="4">{{ getAge(actor.birthDate) }} anos</ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="getActorInfo() as info" class="ion-padding">
+    <h2 class="ion-text-center">Dashboard de gêneros dos atores</h2>
+
+    <ion-grid class="dashboard-wrapper">
+      <ion-row class="dashboard-row">
+        <ion-col size="6" class="bar-wrapper">
+          <div class="bar homem" [style.height.%]="info.homem.percentual">
+            <div class="bar-value">{{ info.homem.percentual }}%</div>
+          </div>
+          <div class="bar-label">Homem ({{ info.homem.quantidade }})</div>
+        </ion-col>
+        <ion-col size="6" class="bar-wrapper">
+          <div class="bar mulher" [style.height.%]="info.mulher.percentual">
+            <div class="bar-value">{{ info.mulher.percentual }}%</div>
+          </div>
+          <div class="bar-label">Mulher ({{ info.mulher.quantidade }})</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

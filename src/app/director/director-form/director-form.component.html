@@ -16,10 +16,10 @@
           @if(hasError('name', 'required')) {
             O campo é obrigatório
           }
-          @if(hasError('name', 'minlength')) {
+          @else if(hasError('name', 'minlength')) {
             O campo deve ter no mínimo 4 caracteres
           }
-          @if(hasError('name', 'maxlength')) {
+          @else if(hasError('name', 'maxlength')) {
             O campo deve ter no máximo 100 caracteres
           }
         </p>
@@ -30,10 +30,10 @@
           @if(hasError('experience', 'required')) {
             O campo é obrigatório
           }
-          @if(hasError('experience', 'minlength')) {
+          @else if(hasError('experience', 'minlength')) {
             O campo deve ter no mínimo 4 caracteres
           }
-          @if(hasError('experience', 'maxlength')) {
+          @else if(hasError('experience', 'maxlength')) {
             O campo deve ter no máximo 100 caracteres
           }
         </p>
@@ -44,10 +44,10 @@
           @if(hasError('specialty', 'required')) {
             O campo é obrigatório
           }
-          @if(hasError('specialty', 'minlength')) {
+          @else if(hasError('specialty', 'minlength')) {
             O campo deve ter no mínimo 4 caracteres
           }
-          @if(hasError('specialty', 'maxlength')) {
+          @else if(hasError('specialty', 'maxlength')) {
             O campo deve ter no máximo 100 caracteres
           }
         </p>
@@ -58,7 +58,7 @@
           @if(hasError('image', 'required')) {
             O campo é obrigatório
           }
-          @if(hasError('image', 'invalidUrl')) {
+          @else if(hasError('image', 'invalidUrl')) {
             O campo de logo deve ser uma URL válida
           }
         </p>
@@ -69,7 +69,7 @@
           @if(hasError('phone', 'required')) {
             O campo é obrigatório
           }
-          @if(hasError('phone', 'invalidPhone')) {
+          @else if(hasError('phone', 'invalidPhone')) {
             O campo de telefone deve ser um telefone válido
           }
         </p>
@@ -80,7 +80,7 @@
           @if(hasError('birthDate', 'required')) {
             O campo é obrigatório
           }
-          @if(hasError('birthDate', 'invalidDate')) {
+          @else if(hasError('birthDate', 'invalidDate')) {
             O campo de data deve ser uma data válida
           }
         </p>
@@ -91,7 +91,7 @@
           @if(hasError('email', 'required')) {
             O campo é obrigatório
           }
-          @if(hasError('email', 'invalidEmail')) {
+          @else if(hasError('email', 'invalidEmail')) {
             O campo de email deve conter um email válido
           }
         </p>

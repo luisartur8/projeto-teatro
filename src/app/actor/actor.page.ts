@@ -31,7 +31,7 @@ export class ActorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
         this.actorList = response;
       },
       error: (error) => {
-        alert('Erro ao carregar lista de jogos');
+        alert('Erro ao carregar lista de atores');
         console.error(error);
       }
     });
