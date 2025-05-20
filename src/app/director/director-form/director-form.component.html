@@ -104,6 +104,11 @@
       </ion-item>
     </ion-list>
   </form>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button [routerLink]="['/director']">
+      <ion-icon name="chevron-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [disabled]="directorForm.invalid" (click)="save()">
       <ion-icon name="checkmark"></ion-icon>
