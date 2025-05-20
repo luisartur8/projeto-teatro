@@ -77,6 +77,11 @@
     </ion-list>
   </form>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/actor']">
+      <ion-icon name="chevron-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [disabled]="actorForm.invalid" (click)="save()">
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
