@@ -9,11 +9,15 @@ import { AlertController, ToastController, ViewDidEnter, ViewDidLeave, ViewWillE
   styleUrls: ['./actor.page.scss'],
   standalone: false
 })
-export class ActorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave, ViewDidEnter, ViewWillLeave, ViewDidLeave {
+export class ActorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave {
 
   actorList: Actor[] = []
 
   constructor(private actorService: ActorService, private alertController: AlertController, private toastController: ToastController,) { }
+
+  trackByActor(index: number, actor: Actor) {
+    return actor.id;
+  }
 
   ionViewDidLeave(): void {
     console.log('ionViewDidLeave');
@@ -69,8 +73,8 @@ export class ActorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
     }).then(alert => alert.present());
   }
 
-  getAge(birthDate: string | Date): number {
-    const birth = new Date(birthDate);
+  getAge(birth_date: string | Date): number {
+    const birth = new Date(birth_date);
     const today = new Date();
 
     let age = today.getFullYear() - birth.getFullYear();

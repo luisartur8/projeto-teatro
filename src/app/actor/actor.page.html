@@ -6,6 +6,7 @@
     <ion-title>Teatro</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -17,71 +18,73 @@
     <ion-list-header>
       <ion-label class="titulo">Lista de Atores</ion-label>
     </ion-list-header>
+
     <div class="card-container">
-      @for(actor of actorList; track actor.name) {
-      <div class="card">
-        <div class="foto-nome">
-          <ion-thumbnail slot="start">
-            @if(actor.image) {
-            <img [src]="actor.image" />
-            } @else {
-            <img src="../core/images/default-avatar.png" />
-            }
-          </ion-thumbnail>
-          <div class="nome-idade">
-            <h2>{{ actor.name }}</h2>
-            <h3>{{ getAge(actor.birthDate) }} anos</h3>
+      <ng-container *ngIf="actorList.length > 0; else emptyList">
+        <div class="card" *ngFor="let actor of actorList; trackBy: trackByActor">
+          <div class="foto-nome">
+            <ion-thumbnail slot="start">
+              <img [src]="actor.image || '../core/images/default-avatar.png'" />
+            </ion-thumbnail>
+            <div class="nome-idade">
+              <h2>{{ actor.name }}</h2>
+              <h3>{{ getAge(actor.birth_date ) }} anos</h3>
+            </div>
           </div>
+
+          <ion-text class="actor-info">
+            <table>
+              <tbody>
+                <tr>
+                  <td class="label">Telefone</td>
+                  <td class="value">{{ actor.phone }}</td>
+                </tr>
+                <tr>
+                  <td class="label">Aniversário</td>
+                  <td class="value">{{ actor.birth_date | date: 'dd/MM/yyyy' }}</td>
+                </tr>
+                <tr>
+                  <td class="label">Email</td>
+                  <td class="value">{{ actor.email }}</td>
+                </tr>
+                <tr>
+                  <td class="label">Gênero</td>
+                  <td class="value">{{ actor.gender }}</td>
+                </tr>
+                <tr>
+                  <td class="label">Biografia</td>
+                  <td class="value value-biograpgy">{{ actor.biography }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="button-container">
+              <ion-button size="small" [routerLink]="['edit', actor.id]">
+                <ion-icon name="create" slot="start"></ion-icon>
+                Editar
+              </ion-button>
+              <ion-button size="small" (click)="remove(actor)">
+                <ion-icon name="trash" slot="end"></ion-icon>
+                Excluir
+              </ion-button>
+            </div>
+          </ion-text>
         </div>
-        <ion-text class="actor-info">
-          <table>
-            <tbody>
-              <tr>
-                <td class="label">Telefone</td>
-                <td class="value">{{ actor.phone }}</td>
-              </tr>
-              <tr>
-                <td class="label">Aniversário</td>
-                <td class="value">{{ actor.birthDate | date: 'dd/MM/yyyy' }}</td>
-              </tr>
-              <tr>
-                <td class="label">Email</td>
-                <td class="value">{{ actor.email }}</td>
-              </tr>
-              <tr>
-                <td class="label">Gênero</td>
-                <td class="value">{{ actor.gender }}</td>
-              </tr>
-              <tr>
-                <td class="label">Biografia</td>
-                <td class="value value-biograpgy">{{ actor.biography }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="button-container">
-            <ion-button size="small" [routerLink]="['edit', actor.id]">
-              <ion-icon name="create" slot="start"></ion-icon>
-              Editar
-            </ion-button>
-            <ion-button size="small" (click)="remove(actor)">
-              <ion-icon name="trash" slot="end"></ion-icon>
-              Excluir
-            </ion-button>
-          </div>
-        </ion-text>
-      </div>
-      }
-      @empty {
-      <div class="lista-vazia">
-        <ion-icon name="information-circle-outline"></ion-icon>
-        <ion-item>Lista de atores vazia, cadastre um novo ator!</ion-item>
-      </div>
-      }
+      </ng-container>
+
+      <ng-template #emptyList>
+        <div class="lista-vazia">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <ion-item>Lista de atores vazia, cadastre um novo ator!</ion-item>
+        </div>
+      </ng-template>
+
       <div class="add-item-container" [routerLink]="['new']">
         <img class="add-item-image" src="assets/icon/add-gray-icon.png" alt="adicionar">
       </div>
     </div>
   </ion-list>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['new']">
       <ion-icon name="add"></ion-icon>

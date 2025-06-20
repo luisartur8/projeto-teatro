@@ -35,7 +35,7 @@ export class ActorFormComponent implements OnInit {
       Validators.required,
       ApplicationPhoneValidators.phoneValidator
     ]),
-    birthDate: new FormControl('', [
+    birth_date: new FormControl('', [
       Validators.required,
       ApplicationDateValidators.dateValidator
     ]),
@@ -61,12 +61,12 @@ export class ActorFormComponent implements OnInit {
         next: (actor) => {
           if (actor) {
             this.actorId = actorId;
-            if (actor.birthDate instanceof Date) {
-              actor.birthDate = formatDateMask(actor.birthDate);
+            if (actor.birth_date instanceof Date) {
+              actor.birth_date = formatDateMask(actor.birth_date);
             }
-            if (typeof actor.birthDate === 'string') {
-              const parsedDate = parseDateMask(actor.birthDate, 'yyyy/mm/dd');
-              actor.birthDate = parsedDate ? formatDateMask(parsedDate) : '';
+            if (typeof actor.birth_date === 'string') {
+              const parsedDate = parseDateMask(actor.birth_date, 'yyyy/mm/dd');
+              actor.birth_date = parsedDate ? formatDateMask(parsedDate) : '';
             }
             this.actorForm.patchValue(actor);
           }
@@ -88,9 +88,16 @@ export class ActorFormComponent implements OnInit {
 
   save() {
     let { value } = this.actorForm;
-    if (value.birthDate) {
-      value.birthDate = parseDateMask(value.birthDate)
+
+    if (value.birth_date) {
+      const parsedDate = parseDateMask(value.birth_date);
+      if (parsedDate instanceof Date && !isNaN(parsedDate.getTime())) {
+        value.birth_date = parsedDate.toISOString();
+      } else {
+        value.birth_date = null;
+      }
     }
+
     this.actorService.save({
       ...value,
       id: this.actorId
@@ -103,8 +110,9 @@ export class ActorFormComponent implements OnInit {
         this.router.navigate(['/actor']);
       },
       error: (error) => {
-        alert('Erro ao salvar o ator ' + value.name + '!');
-        console.error(error);
+        const backendMessage = error?.error?.message || error.message || 'Erro desconhecido';
+        alert(`Erro ao salvar o ator ${value.name}!\n\nDetalhes: ${JSON.stringify(backendMessage)}`);
+        console.error('Erro detalhado:', error);
       }
     });
   }

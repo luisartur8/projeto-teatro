@@ -45,8 +45,8 @@ export class HomePage implements OnInit {
 
   orderBirthDate() {
     this.orderedActor = [...this.actorList].sort((a, b) => {
-      const dataA = new Date(a.birthDate).getTime();
-      const dataB = new Date(b.birthDate).getTime();
+      const dataA = new Date(a.birth_date).getTime();
+      const dataB = new Date(b.birth_date).getTime();
 
       return this.selectedOrder === 'asc' ? dataA - dataB : dataB - dataA;
     });
