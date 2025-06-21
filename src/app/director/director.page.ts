@@ -69,8 +69,8 @@ export class DirectorPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
     }).then(alert => alert.present());
   }
 
-  getAge(birthDate: string | Date): number {
-    const birth = new Date(birthDate);
+  getAge(birth_date: string | Date): number {
+    const birth = new Date(birth_date);
     const today = new Date();
 
     let age = today.getFullYear() - birth.getFullYear();

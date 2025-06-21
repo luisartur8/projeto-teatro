@@ -1,12 +1,12 @@
 export type Director = {
-  id?: number,
+  id?: string,
   name: string,
   specialty: string,
   experience: string,
   image: string | null,
   phone: string,
   email: string,
-  birthDate: Date | string,
+  birth_date: Date | string,
   gender: string,
   biography: string
 }
