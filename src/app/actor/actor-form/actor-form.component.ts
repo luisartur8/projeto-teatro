@@ -89,6 +89,9 @@ export class ActorFormComponent implements OnInit {
   save() {
     let { value } = this.actorForm;
 
+    if (!value.image || value.image.trim() === '') {
+      value.image = 'https://imgs.search.brave.com/vvPQQBvMiB8sI69j6zQ6Eow2teMG6HAKXXkMysEptCI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zZWEy/LmRpc2NvdXJzZS1j/ZG4uY29tL2ZsZXgw/MjAvdXNlcl9hdmF0/YXIvY29tbXVuaXR5/LmdsaWRlYXBwcy5j/b20vbmF0aGFuYWVs/Yi80OC80MzA3OV8y/LnBuZw';
+    }
     if (value.birth_date) {
       const parsedDate = parseDateMask(value.birth_date);
       if (parsedDate instanceof Date && !isNaN(parsedDate.getTime())) {

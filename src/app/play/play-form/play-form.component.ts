@@ -23,7 +23,6 @@ export class PlayFormComponent implements OnInit {
     name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]),
     address: new FormControl(''),
     image: new FormControl('', [
-      Validators.required,
       ApplicationUrlValidators.urlValidator
     ]),
 
@@ -79,6 +78,10 @@ export class PlayFormComponent implements OnInit {
 
   save() {
     let { value } = this.PlayForm;
+
+    if (!value.image || value.image.trim() === '') {
+      value.image = 'https://imgs.search.brave.com/vvPQQBvMiB8sI69j6zQ6Eow2teMG6HAKXXkMysEptCI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zZWEy/LmRpc2NvdXJzZS1j/ZG4uY29tL2ZsZXgw/MjAvdXNlcl9hdmF0/YXIvY29tbXVuaXR5/LmdsaWRlYXBwcy5j/b20vbmF0aGFuYWVs/Yi80OC80MzA3OV8y/LnBuZw';
+    }
 
     this.playService.save({
       ...value,
