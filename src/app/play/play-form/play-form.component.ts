@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { capacityMask, maskitoElement, phoneMask } from 'src/app/core/constants/mask.constants';
+import { maskitoElement, phoneMask } from 'src/app/core/constants/mask.constants';
 import { ApplicationUrlValidators } from 'src/app/core/validators/url.validator';
 import { PlayService } from '../services/play.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { ActorService } from 'src/app/actor/services/actor.service';
   standalone: false,
 })
 export class PlayFormComponent implements OnInit {
-  capacityMask = capacityMask;
+
   maskitoElement = maskitoElement;
 
   PlayForm: FormGroup = new FormGroup({
@@ -26,7 +26,7 @@ export class PlayFormComponent implements OnInit {
       Validators.required,
       ApplicationUrlValidators.urlValidator
     ]),
-    capacity: new FormControl(''),
+
     gender: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     synopsis: new FormControl('', [Validators.required, Validators.minLength(100), Validators.maxLength(255)]),
 

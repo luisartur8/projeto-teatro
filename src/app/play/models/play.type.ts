@@ -5,7 +5,7 @@ export type Play = {
   synopsis: string | null;
   gender: string;
   address: string;
-  capacity: number;
+
 
 
   directorId?: string;
