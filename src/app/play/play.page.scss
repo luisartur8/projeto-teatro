@@ -39,7 +39,7 @@ ion-toolbar {
   flex-direction: column;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
-  /* Sombra baseada no shade */
+
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 400px;
   overflow-y: auto;
@@ -140,7 +140,7 @@ ion-button {
   text-align: center;
   padding: 40px 20px;
   background-color: #1A1A1A;
-  /* Fundo escuro para consistência */
+
   border: 2px dashed var(--ion-color-secondary-tint);
   border-radius: 8px;
   margin: 20px;
@@ -177,7 +177,7 @@ ion-button {
   object-fit: contain;
 }
 
-/* Media Queries para responsividade */
+
 @media (max-width: 768px) {
   .card {
     flex: 0 0 calc(50% - 32px);
@@ -191,8 +191,8 @@ ion-button {
   }
 }
 
-/* Fundo geral */
+
 ion-content {
   --ion-background-color: #1A1A1A;
-  /* Fundo escuro para a tela */
+
 }

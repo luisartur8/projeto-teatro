@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Theater } from '../models/theater.type';
 import { HttpClient } from '@angular/common/http';
+import { parseDateMask } from 'src/app/core/constants/mask.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,31 @@ export class TheaterService {
   }
 
   save(theater: Theater) {
-    return theater.id ? this.update(theater) : this.add(theater);
+    let foundation: string | null = null;
+
+    if (theater.foundation instanceof Date) {
+      foundation = theater.foundation.toISOString().split('T')[0];
+    } else if (typeof theater.foundation === 'string' && theater.foundation.includes('/')) {
+      const [day, month, year] = theater.foundation.split('/');
+      if (day && month && year) {
+        foundation = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      }
+    } else if (typeof theater.foundation === 'string') {
+      foundation = theater.foundation;
+    }
+
+    const payload = {
+      ...theater,
+      foundation
+    };
+
+    console.log('📦 Payload enviado para o backend:', payload);
+
+    return theater.id
+      ? this.http.put(`${this.API_URL}/${theater.id}`, payload)
+      : this.http.post(this.API_URL, payload);
   }
+
 
   remove(theater: Theater) {
     return this.http.delete<Theater>(`${this.API_URL}/${theater.id}`);
