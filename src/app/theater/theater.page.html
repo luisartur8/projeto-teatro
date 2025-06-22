@@ -12,7 +12,28 @@
       <ion-title size="large">Teatros</ion-title>
     </ion-toolbar>
   </ion-header>
-
+  <ion-item>
+    <ion-label>Ordenar por fundação</ion-label>
+    <ion-select [(ngModel)]="selectedOrder" (ionChange)="loadTheaters()">
+      <ion-select-option value="asc">Mais antigo</ion-select-option>
+      <ion-select-option value="desc">Mais recente</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <div class="ion-padding">
+    <ion-button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</ion-button>
+    <ion-label>Página {{ currentPage }}</ion-label>
+    <ion-button (click)="nextPage()">Próxima</ion-button>
+  </div>
+  <ion-item>
+    <ion-label>Teatros por página</ion-label>
+    <ion-select [(ngModel)]="limit" (ionChange)="loadTheaters()">
+      <ion-select-option [value]="1">1</ion-select-option>
+      <ion-select-option [value]="2">2</ion-select-option>
+      <ion-select-option [value]="3">3</ion-select-option>
+      <ion-select-option [value]="5">5</ion-select-option>
+      <ion-select-option [value]="10">10</ion-select-option>
+    </ion-select>
+  </ion-item>
   <ion-list>
     <ion-list-header>
       <ion-label class="titulo">Lista de Teatros</ion-label>

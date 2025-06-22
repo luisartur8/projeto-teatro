@@ -5,6 +5,9 @@ import { ApplicationUrlValidators } from 'src/app/core/validators/url.validator'
 import { PlayService } from '../services/play.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { DirectorService } from 'src/app/director/services/director.service';
+import { TheaterService } from 'src/app/theater/services/theater.service';
+import { ActorService } from 'src/app/actor/services/actor.service';
 
 @Component({
   selector: 'app-play-form',
@@ -25,11 +28,27 @@ export class PlayFormComponent implements OnInit {
     ]),
     capacity: new FormControl(''),
     gender: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-    synopsis: new FormControl('', [Validators.required, Validators.minLength(100), Validators.maxLength(255)])
+    synopsis: new FormControl('', [Validators.required, Validators.minLength(100), Validators.maxLength(255)]),
+
+
+    directorId: new FormControl('', [Validators.required]),
+    theaterId: new FormControl('', [Validators.required]),
+    actorId: new FormControl([])
   });
   playId!: number;
 
-  constructor(private playService: PlayService, private router: Router, private activatedRoute: ActivatedRoute, private toastController: ToastController) {
+  directorList: any[] = [];
+  theaterList: any[] = [];
+  actorList: any[] = [];
+  constructor(
+    private playService: PlayService,
+    private directorService: DirectorService,
+    private theaterService: TheaterService,
+    private actorService: ActorService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private toastController: ToastController
+  ) {
     const playId = this.activatedRoute.snapshot.params['playId'];
     if (playId) {
       this.playService.getById(playId).subscribe({
@@ -47,7 +66,11 @@ export class PlayFormComponent implements OnInit {
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.directorService.getList().subscribe((list) => this.directorList = list);
+    this.theaterService.getList().subscribe((list) => this.theaterList = list);
+    this.actorService.getList().subscribe((list) => this.actorList = list);
+  }
 
   hasError(field: string, error: string) {
     const formControl = this.PlayForm.get(field);
@@ -69,8 +92,9 @@ export class PlayFormComponent implements OnInit {
         this.router.navigate(['/play']);
       },
       error: (error) => {
-        alert('Erro ao salvar a peça ' + value.name + '!');
-        console.error(error);
+        const backendMessage = error?.error?.message || error.message || 'Erro desconhecido';
+        alert(`Erro ao salvar o play ${value.name}!\n\nDetalhes: ${JSON.stringify(backendMessage)}`);
+        console.error('Erro detalhado:', error);
       }
     });
   }

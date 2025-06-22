@@ -12,27 +12,27 @@
     <ion-list>
       <ion-item>
         <ion-input formControlName="name" labelPlacement="floating" label="Nome: " type="text"></ion-input>
-          @if(hasError('name', 'required')) {
-            O campo é obrigatório
-          }
-          @else if(hasError('name', 'minlength')) {
-            O campo deve ter no mínimo 4 caracteres
-          }
-          @else if(hasError('name', 'maxlength')) {
-            O campo deve ter no máximo 100 caracteres
-          }        
+        @if(hasError('name', 'required')) {
+        O campo é obrigatório
+        }
+        @else if(hasError('name', 'minlength')) {
+        O campo deve ter no mínimo 4 caracteres
+        }
+        @else if(hasError('name', 'maxlength')) {
+        O campo deve ter no máximo 100 caracteres
+        }
       </ion-item>
       <ion-item>
         <ion-input formControlName="synopsis" labelPlacement="floating" label="Sinopse: " type="text"></ion-input>
         <p>
           @if(hasError('synopsis', 'required')) {
-            O campo é obrigatório
+          O campo é obrigatório
           }
           @else if(hasError('synopsis', 'minlength')) {
-            O campo deve ter no mínimo 100 caracteres
+          O campo deve ter no mínimo 100 caracteres
           }
           @else if(hasError('synopsis', 'maxlength')) {
-            O campo deve ter no máximo 255 caracteres
+          O campo deve ter no máximo 255 caracteres
           }
         </p>
       </ion-item>
@@ -40,10 +40,10 @@
         <ion-input formControlName="image" labelPlacement="floating" label="Logo (URL) *" type="url"></ion-input>
         <p>
           @if(hasError('image', 'required')) {
-            O campo é obrigatório
+          O campo é obrigatório
           }
           @else if(hasError('image', 'invalidUrl')) {
-            O campo de logo deve ser uma URL válida
+          O campo de logo deve ser uma URL válida
           }
         </p>
       </ion-item>
@@ -51,22 +51,53 @@
         <ion-input formControlName="gender" labelPlacement="floating" label="Gênero" type="text"></ion-input>
         <p>
           @if(hasError('gender', 'required')) {
-            O campo é obrigatório
-          } 
+          O campo é obrigatório
+          }
           @else if(hasError('gender', 'minlength')) {
-            O campo deve ter no mínimo 4 caracteres
+          O campo deve ter no mínimo 4 caracteres
           }
           @else if(hasError('gender', 'maxlength')) {
-            O campo deve ter no máximo 20 caracteres
+          O campo deve ter no máximo 20 caracteres
           }
         </p>
-      </ion-item>      
+      </ion-item>
       <ion-item>
         <ion-input formControlName="address" labelPlacement="floating" label="Endereço" type="text"></ion-input>
-      </ion-item>      
+      </ion-item>
       <ion-item>
         <ion-input formControlName="capacity" labelPlacement="floating" label="Capacidade" type="number"></ion-input>
-      </ion-item>      
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Diretor </ion-label>
+        <ion-select formControlName="directorId" interface="popover">
+          @for (director of directorList; track director.id) {
+          <ion-select-option [value]="director.id">{{ director.name }}</ion-select-option>
+          }
+        </ion-select>
+        <p *ngIf="hasError('directorId', 'required')">O campo é obrigatório</p>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label position="floating">Teatro </ion-label>
+        <ion-select formControlName="theaterId" interface="popover">
+          @for (theater of theaterList; track theater.id) {
+          <ion-select-option [value]="theater.id">{{ theater.name }}</ion-select-option>
+          }
+        </ion-select>
+        <p *ngIf="hasError('theaterId', 'required')">O campo é obrigatório</p>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label position="floating">Atores</ion-label>
+        <ion-select formControlName="actorId" multiple="true" interface="popover">
+          @for (actor of actorList; track actor.id) {
+          <ion-select-option [value]="actor.id">{{ actor.name }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
     </ion-list>
   </form>
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">

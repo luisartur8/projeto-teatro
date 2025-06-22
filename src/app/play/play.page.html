@@ -43,11 +43,28 @@
               <tr>
                 <td class="label">Capacidade</td>
                 <td class="value">{{ play.capacity }}</td>
-              </tr>   
+              </tr>
               <tr>
                 <td class="label">Sinopse</td>
-                <td class="value">{{ play.synopsis }}</td>
-              </tr>           
+                <td class="value">
+                  <div class="synopsis-container" [innerHTML]="play.synopsis">{{ play.synopsis }}</div>
+                </td>
+              </tr>
+              <tr>
+                <td class="label">Diretor</td>
+                <td class="value">{{ play.director?.name }}</td>
+              </tr>
+
+              <tr>
+                <td class="label">Teatro</td>
+                <td class="value">{{ play.theater?.name }}</td>
+              </tr>
+              <tr>
+                <td class="label">Atores</td>
+                <td class="value">
+                  {{ getActorNames(play.actor) }}
+                </td>
+              </tr>
             </tbody>
           </table>
           <div class="button-container">

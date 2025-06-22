@@ -102,8 +102,9 @@ export class TheaterFormComponent implements OnInit {
         this.router.navigate(['/theater']);
       },
       error: (error) => {
-        alert('Erro ao salvar o teatro ' + value.name + '!');
-        console.error(error);
+        const backendMessage = error?.error?.message || error.message || 'Erro desconhecido';
+        alert(`Erro ao salvar o play ${value.name}!\n\nDetalhes: ${JSON.stringify(backendMessage)}`);
+        console.error('Erro detalhado:', error);
       }
     });
   }

@@ -12,6 +12,32 @@ import { AlertController, ToastController, ViewDidEnter, ViewDidLeave, ViewWillE
 export class TheaterPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave, ViewDidEnter, ViewWillLeave, ViewDidLeave {
 
   theaterList: Theater[] = []
+  selectedOrder: 'asc' | 'desc' = 'asc';
+  currentPage: number = 1;
+  limit: number = 10;
+
+  loadTheaters() {
+    this.theaterService.getPaginatedList(this.currentPage, this.limit, this.selectedOrder).subscribe({
+      next: (response) => {
+        this.theaterList = response;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar teatros:', error);
+      }
+    });
+  }
+
+  nextPage() {
+    this.currentPage++;
+    this.loadTheaters();
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadTheaters();
+    }
+  }
 
   constructor(private theaterService: TheaterService, private alertController: AlertController, private toastController: ToastController,) { }
 
@@ -25,16 +51,9 @@ export class TheaterPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWil
     console.log('ionViewDidEnter');
   }
   ionViewWillEnter(): void {
+    this.loadTheaters();
     console.log('ionViewWillEnter');
-    this.theaterService.getList().subscribe({
-      next: (response) => {
-        this.theaterList = response;
-      },
-      error: (error) => {
-        alert('Erro ao carregar lista de teatros');
-        console.error(error);
-      }
-    });
+
   }
 
   ngOnInit() { }

@@ -28,9 +28,30 @@ export class DirectorService {
   }
 
   save(director: Director) {
-    return director.id ? this.update(director) : this.add(director);
-  }
+    let birth_date: string | null = null;
 
+    if (director.birth_date instanceof Date) {
+      birth_date = director.birth_date.toISOString().split('T')[0];
+    } else if (typeof director.birth_date === 'string' && director.birth_date.includes('/')) {
+      const [day, month, year] = director.birth_date.split('/');
+      if (day && month && year) {
+        birth_date = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      }
+    } else if (typeof director.birth_date === 'string') {
+      birth_date = director.birth_date;
+    }
+
+    const payload = {
+      ...director,
+      birth_date
+    };
+
+    console.log('📦 Payload enviado para o backend:', payload);
+
+    return director.id
+      ? this.http.put(`${this.API_URL}/${director.id}`, payload)
+      : this.http.post(this.API_URL, payload);
+  }
   remove(director: Director) {
     return this.http.delete<Director>(`${this.API_URL}/${director.id}`);
   }

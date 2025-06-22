@@ -37,7 +37,12 @@ export class PlayPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLe
   }
 
   ngOnInit() { }
-
+  getActorNames(actors?: { name: string }[]): string {
+    if (!actors || actors.length === 0) {
+      return 'Nenhum ator vinculado';
+    }
+    return actors.map(a => a.name).join(', ');
+  }
   remove(play: Play) {
     this.alertController.create({
       header: 'Exclusão',

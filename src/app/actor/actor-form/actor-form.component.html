@@ -14,13 +14,13 @@
         <ion-input formControlName="name" labelPlacement="floating" label="Nome *" type="text"></ion-input>
         <p>
           @if(hasError('name', 'required')) {
-            O campo é obrigatório
+          O campo é obrigatório
           }
           @else if(hasError('name', 'minlength')) {
-            O campo deve ter no mínimo 4 caracteres
+          O campo deve ter no mínimo 4 caracteres
           }
           @else if(hasError('name', 'maxlength')) {
-            O campo deve ter no máximo 100 caracteres
+          O campo deve ter no máximo 100 caracteres
           }
         </p>
       </ion-item>
@@ -28,32 +28,34 @@
         <ion-input formControlName="image" labelPlacement="floating" label="Logo (URL) *" type="url"></ion-input>
         <p>
           @if(hasError('image', 'required')) {
-            O campo é obrigatório
+          O campo é obrigatório
           }
           @else if(hasError('image', 'invalidUrl')) {
-            O campo de logo deve ser uma URL válida
+          O campo de logo deve ser uma URL válida
           }
         </p>
       </ion-item>
       <ion-item>
-        <ion-input formControlName="phone" labelPlacement="floating" label="Telefone *" [maskito]="phoneMask" [maskitoElement]="maskitoElement" />
+        <ion-input formControlName="phone" labelPlacement="floating" label="Telefone *" [maskito]="phoneMask"
+          [maskitoElement]="maskitoElement" />
         <p>
           @if(hasError('phone', 'required')) {
-            O campo é obrigatório
+          O campo é obrigatório
           }
           @else if(hasError('phone', 'invalidPhone')) {
-            O campo de telefone deve ser um telefone válido
+          O campo de telefone deve ser um telefone válido
           }
         </p>
       </ion-item>
       <ion-item>
-        <ion-input formControlName="birthDate" labelPlacement="floating" label="Aniversário *" [maskito]="dateMask" [maskitoElement]="maskitoElement" />
+        <ion-input formControlName="birth_date" labelPlacement="floating" label="Aniversário *" [maskito]="dateMask"
+          [maskitoElement]="maskitoElement" />
         <p>
-          @if(hasError('birthDate', 'required')) {
-            O campo é obrigatório
+          @if(hasError('birth_date ', 'required')) {
+          O campo é obrigatório
           }
-          @else if(hasError('birthDate', 'invalidDate')) {
-            O campo de data deve ser uma data válida
+          @else if(hasError('birth_date', 'invalidDate')) {
+          O campo de data deve ser uma data válida
           }
         </p>
       </ion-item>
@@ -61,10 +63,10 @@
         <ion-input formControlName="email" labelPlacement="floating" label="Email" type="text" />
         <p>
           @if(hasError('email', 'required')) {
-            O campo é obrigatório
+          O campo é obrigatório
           }
           @else if(hasError('email', 'invalidEmail')) {
-            O campo de email deve conter um email válido
+          O campo de email deve conter um email válido
           }
         </p>
       </ion-item>

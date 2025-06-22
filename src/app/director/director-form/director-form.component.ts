@@ -45,7 +45,7 @@ export class DirectorFormComponent implements OnInit {
       Validators.required,
       ApplicationPhoneValidators.phoneValidator
     ]),
-    birthDate: new FormControl('', [
+    birth_date: new FormControl('', [
       Validators.required,
       ApplicationDateValidators.dateValidator
     ]),
@@ -65,12 +65,12 @@ export class DirectorFormComponent implements OnInit {
         next: (director) => {
           if (director) {
             this.directorId = directorId;
-            if (director.birthDate instanceof Date) {
-              director.birthDate = formatDateMask(director.birthDate);
+            if (director.birth_date instanceof Date) {
+              director.birth_date = formatDateMask(director.birth_date);
             }
-            if (typeof director.birthDate === 'string') {
-              const parsedDate = parseDateMask(director.birthDate, 'yyyy/mm/dd');
-              director.birthDate = parsedDate ? formatDateMask(parsedDate) : '';
+            if (typeof director.birth_date === 'string') {
+              const parsedDate = parseDateMask(director.birth_date, 'yyyy/mm/dd');
+              director.birth_date = parsedDate ? formatDateMask(parsedDate) : '';
             }
             this.directorForm.patchValue(director);
           }
@@ -92,8 +92,8 @@ export class DirectorFormComponent implements OnInit {
 
   save() {
     let { value } = this.directorForm;
-    if (value.birthDate) {
-      value.birthDate = parseDateMask(value.birthDate)
+    if (value.birth_date) {
+      value.birth_date = parseDateMask(value.birth_date)
     }
     this.directorService.save({
       ...value,
@@ -107,8 +107,9 @@ export class DirectorFormComponent implements OnInit {
         this.router.navigate(['/director']);
       },
       error: (error) => {
-        alert('Erro ao salvar o diretor ' + value.name + '!');
-        console.error(error);
+        const backendMessage = error?.error?.message || error.message || 'Erro desconhecido';
+        alert(`Erro ao salvar o diretor ${value.name}!\n\nDetalhes: ${JSON.stringify(backendMessage)}`);
+        console.error('Erro detalhado:', error);
       }
     });
   }

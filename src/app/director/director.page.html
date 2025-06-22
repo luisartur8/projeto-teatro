@@ -30,7 +30,7 @@
           </ion-thumbnail>
           <div class="nome-idade">
             <h2>{{ director.name }}</h2>
-            <h3>{{ getAge(director.birthDate) }} anos</h3>
+            <h3>{{ getAge(director.birth_date) }} anos</h3>
           </div>
         </div>
         <ion-text class="director-info">
@@ -42,7 +42,7 @@
               </tr>
               <tr>
                 <td class="label">Aniversário</td>
-                <td class="value">{{ director.birthDate | date: 'dd/MM/yyyy' }}</td>
+                <td class="value">{{ director.birth_date | date: 'dd/MM/yyyy' }}</td>
               </tr>
               <tr>
                 <td class="label">Email</td>

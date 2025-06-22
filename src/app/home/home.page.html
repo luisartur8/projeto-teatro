@@ -31,8 +31,8 @@
 
     <ion-row *ngFor="let actor of orderedActor" class="data-row">
       <ion-col size="4">{{ actor.name }}</ion-col>
-      <ion-col size="4">{{ actor.birthDate | date:'dd/MM/yyyy' }}</ion-col>
-      <ion-col size="4">{{ getAge(actor.birthDate) }} anos</ion-col>
+      <ion-col size="4">{{ actor.birth_date | date:'dd/MM/yyyy' }}</ion-col>
+      <ion-col size="4">{{ getAge(actor.birth_date ) }} anos</ion-col>
     </ion-row>
   </ion-grid>
 
@@ -43,13 +43,13 @@
       <ion-row class="dashboard-row">
         <ion-col size="6" class="bar-wrapper">
           <div class="bar homem" [style.height.%]="info.homem.percentual">
-            <div class="bar-value">{{ info.homem.percentual }}%</div>
+            <div class="bar-value">{{ info.homem.percentual | number:'1.0-0' }}%</div>
           </div>
           <div class="bar-label">Homem ({{ info.homem.quantidade }})</div>
         </ion-col>
         <ion-col size="6" class="bar-wrapper">
           <div class="bar mulher" [style.height.%]="info.mulher.percentual">
-            <div class="bar-value">{{ info.mulher.percentual }}%</div>
+            <div class="bar-value">{{ info.mulher.percentual | number:'1.0-0' }}%</div>
           </div>
           <div class="bar-label">Mulher ({{ info.mulher.quantidade }})</div>
         </ion-col>
