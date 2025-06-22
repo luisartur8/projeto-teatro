@@ -1,8 +1,14 @@
 :root {
-    --ion-color-secondary: #47606A;
-    --ion-color-secondary-rgb: 168, 143, 172;
-    --ion-color-secondary-contrast: white;
+    --ion-color-secondary: #2A5298;
+    /* Azul médio, cor base dos cards */
+    --ion-color-secondary-rgb: 42, 82, 152;
+    /* RGB correspondente */
+    --ion-color-secondary-contrast: #FFFFFF;
+    /* Branco para texto nos cards */
     --ion-color-secondary-contrast-rgb: 255, 255, 255;
-    --ion-color-secondary-shade: #0A2472;
-    --ion-color-secondary-tint: #001C55;
+    /* RGB do branco */
+    --ion-color-secondary-shade: #1E3A8A;
+    /* Azul escuro, para cabeçalho ou sombras */
+    --ion-color-secondary-tint: #4B6ABF;
+    /* Azul claro, para botões ou destaques */
 }
