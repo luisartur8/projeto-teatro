@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Theater } from '../models/theater.type';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { parseDateMask } from 'src/app/core/constants/mask.constants';
 
 @Injectable({
@@ -19,7 +19,14 @@ export class TheaterService {
   getList() {
     return this.http.get<Theater[]>(this.API_URL);
   }
+  getPaginatedList(page: number, limit: number, order: 'asc' | 'desc') {
+    const params = new HttpParams()
+      .set('page', page)
+      .set('limit', limit)
+      .set('order', order);
 
+    return this.http.get<Theater[]>('http://localhost:3000/theater', { params });
+  }
   private add(theater: Theater) {
     return this.http.post<Theater>(this.API_URL, theater);
   }

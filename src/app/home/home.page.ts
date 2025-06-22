@@ -75,8 +75,8 @@ export class HomePage implements OnInit {
     const actors = this.actorList;
 
     actors.map(actor => {
-      if (actor.gender === 'M') homem++;
-      if (actor.gender === 'F') mulher++;
+      if (actor.gender === 'M' || actor.gender === 'm') homem++;
+      if (actor.gender === 'F' || actor.gender === 'f') mulher++;
     })
 
     return {
