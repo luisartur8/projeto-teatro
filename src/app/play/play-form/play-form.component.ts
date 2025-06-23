@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { capacityMask, maskitoElement, phoneMask } from 'src/app/core/constants/mask.constants';
+import { maskitoElement, phoneMask } from 'src/app/core/constants/mask.constants';
 import { ApplicationUrlValidators } from 'src/app/core/validators/url.validator';
 import { PlayService } from '../services/play.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,17 +16,16 @@ import { ActorService } from 'src/app/actor/services/actor.service';
   standalone: false,
 })
 export class PlayFormComponent implements OnInit {
-  capacityMask = capacityMask;
+
   maskitoElement = maskitoElement;
 
   PlayForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]),
     address: new FormControl(''),
     image: new FormControl('', [
-      Validators.required,
       ApplicationUrlValidators.urlValidator
     ]),
-    capacity: new FormControl(''),
+
     gender: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     synopsis: new FormControl('', [Validators.required, Validators.minLength(100), Validators.maxLength(255)]),
 
@@ -79,6 +78,10 @@ export class PlayFormComponent implements OnInit {
 
   save() {
     let { value } = this.PlayForm;
+
+    if (!value.image || value.image.trim() === '') {
+      value.image = 'https://imgs.search.brave.com/vvPQQBvMiB8sI69j6zQ6Eow2teMG6HAKXXkMysEptCI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zZWEy/LmRpc2NvdXJzZS1j/ZG4uY29tL2ZsZXgw/MjAvdXNlcl9hdmF0/YXIvY29tbXVuaXR5/LmdsaWRlYXBwcy5j/b20vbmF0aGFuYWVs/Yi80OC80MzA3OV8y/LnBuZw';
+    }
 
     this.playService.save({
       ...value,

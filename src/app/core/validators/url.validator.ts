@@ -1,12 +1,20 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, ValidationErrors } from "@angular/forms";
 
 export class ApplicationUrlValidators {
-
   static urlValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
-    if(value.startsWith('http://') || value.startsWith('https://')) {
+
+
+    if (!value || value.trim() === '') {
       return null;
     }
-    return { invalidUrl: true }
+
+
+    if (value.startsWith('http://') || value.startsWith('https://')) {
+      return null;
+    }
+
+
+    return { invalidUrl: true };
   }
 }

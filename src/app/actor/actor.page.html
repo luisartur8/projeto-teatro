@@ -24,7 +24,8 @@
         <div class="card" *ngFor="let actor of actorList; trackBy: trackByActor">
           <div class="foto-nome">
             <ion-thumbnail slot="start">
-              <img [src]="actor.image || '../core/images/default-avatar.png'" />
+              <img
+                [src]="actor.image || 'https://imgs.search.brave.com/vvPQQBvMiB8sI69j6zQ6Eow2teMG6HAKXXkMysEptCI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zZWEy/LmRpc2NvdXJzZS1j/ZG4uY29tL2ZsZXgw/MjAvdXNlcl9hdmF0/YXIvY29tbXVuaXR5/LmdsaWRlYXBwcy5j/b20vbmF0aGFuYWVs/Yi80OC80MzA3OV8y/LnBuZw'" />
             </ion-thumbnail>
             <div class="nome-idade">
               <h2>{{ actor.name }}</h2>
