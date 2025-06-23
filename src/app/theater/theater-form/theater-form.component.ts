@@ -29,7 +29,6 @@ export class TheaterFormComponent implements OnInit {
       Validators.maxLength(100)
     ]),
     image: new FormControl('', [
-      Validators.required,
       ApplicationUrlValidators.urlValidator
     ]),
     phone: new FormControl('', [
