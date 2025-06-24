@@ -65,11 +65,11 @@
             </tbody>
           </table>
           <div class="button-container">
-            <ion-button size="small" [routerLink]="['edit', play.id]">
+            <ion-button size="small" color="success" [routerLink]="['edit', play.id]">
               <ion-icon name="create" slot="start"></ion-icon>
               Editar
             </ion-button>
-            <ion-button size="small" (click)="remove(play)">
+            <ion-button vertical="bottom" size="small" color="danger" (click)="remove(play)">
               <ion-icon name="trash" slot="end"></ion-icon>
               Excluir
             </ion-button>

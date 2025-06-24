@@ -54,11 +54,17 @@ export class PlayFormComponent implements OnInit {
         next: (play) => {
           if (play) {
             this.playId = playId;
-            this.PlayForm.patchValue(play);
+
+            this.PlayForm.patchValue({
+              ...play,
+              directorId: play.director?.id,
+              theaterId: play.theater?.id,
+              actorId: play.actor?.map((actor: any) => actor.id)
+            });
           }
         },
         error: (error) => {
-          alert('Erro ao carregar o peça com id ' + playId)
+          alert('Erro ao carregar a peça com id ' + playId);
           console.error(error);
         }
       });

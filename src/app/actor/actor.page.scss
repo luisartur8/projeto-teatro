@@ -1,13 +1,13 @@
 .titulo {
   font-size: 1.8rem;
   font-weight: 700;
-  color: var(--ion-color-secondary-contrast);
+  color: #f4f4f4;
   text-align: center;
-  padding: 12px 0;
+  padding: 16px 0;
   text-transform: uppercase;
   letter-spacing: 2px;
-  border-bottom: 2px solid var(--ion-color-secondary-tint);
-  margin-bottom: 16px;
+  border-bottom: 2px solid #3f5fa4;
+  margin-bottom: 24px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -15,25 +15,42 @@ ion-toolbar {
   background-color: var(--ion-color-secondary-shade);
 }
 
+ion-content {
+  --ion-background-color: #12141c;
+}
+
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 16px;
-  padding: 16px;
+  padding: 0 16px;
 }
 
 .card {
-  flex: 0 0 calc(33.333% - 32px);
+  min-width: 280px;
+  max-width: 500px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-height: 500px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background-color: #1f2a48;
   overflow: hidden;
-  background-color: #001C55;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-20px);
+}
+
+.foto-nome {
+  display: flex;
+  align-items: center;
+  background-color: #2e3b5e;
+  padding: 20px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 ion-thumbnail {
@@ -43,42 +60,46 @@ ion-thumbnail {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background-color: white;
+  border-radius: 50%;
 }
 
 ion-thumbnail img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
-  display: block;
-}
-
-.foto-nome {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: center;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  background-color: #0A2472;
-  padding: 10px;
+  border-radius: 50%;
 }
 
 .nome-idade {
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
-  color: white;
+  margin-left: 14px;
+  color: var(--ion-color-secondary-contrast);
 }
 
 .nome-idade h2,
 .nome-idade h3 {
   margin: 0;
   padding: 0;
+  line-height: 1.3;
+  color: #f4f4f4;
+}
+
+.play-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  background-color: #1f2a48;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 table {
-  margin: 10px;
+  width: 100%;
+  border-spacing: 0 6px;
 }
 
 td.label {
@@ -87,33 +108,51 @@ td.label {
   text-align: right;
   vertical-align: top;
   white-space: nowrap;
+  color: var(--ion-color-secondary-contrast);
+  width: 30%;
 }
 
 td.value {
   padding-left: 8px;
   text-align: left;
   word-break: break-word;
+  color: var(--ion-color-secondary-contrast);
 }
 
-.value-biograpgy {
-  display: block;
-  max-height: 100px;
+.synopsis-container {
+  max-height: 15vh;
   overflow-y: auto;
-  white-space: pre-wrap;
-  word-break: break-word;
-  padding-right: 4px;
+  word-wrap: break-word;
+  padding-right: 8px;
 }
 
 .button-container {
   display: flex;
   justify-content: center;
-  align-items: end;
+  margin-top: auto;
+  padding-top: 16px;
+  gap: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 ion-button {
-  background-color: #0A2472;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
+  color: #ffffff;
+  transition: filter 0.2s;
+}
+
+ion-button:hover {
+  filter: brightness(1.1);
+}
+
+ion-button:hover[color="success"] {
+  background-color: #4CAF50;
+}
+
+ion-button:hover[color="danger"] {
+  background-color: #F44336;
 }
 
 .lista-vazia {
@@ -123,38 +162,67 @@ ion-button {
   justify-content: center;
   text-align: center;
   padding: 40px 20px;
-  background-color: #f8f9fa;
-  border: 2px dashed #ccc;
+  background-color: #1d1e29;
+  border: 2px dashed #3f5fa4;
   border-radius: 8px;
   margin: 20px;
-  color: #666;
+  color: var(--ion-color-secondary-contrast);
 }
 
 .lista-vazia ion-icon {
   font-size: 40px;
-  color: #3B82F6;
+  color: var(--ion-color-secondary-contrast);
   margin-bottom: 10px;
 }
 
 .lista-vazia ion-item {
   font-size: 16px;
   margin: 0;
+  color: var(--ion-color-secondary-contrast);
 }
 
 .add-item-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: #47606A;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
+  background-color: #2e3b5e;
   width: 200px;
   min-height: 250px;
-  max-height: 500px;
   cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.add-item-container:hover {
+  transform: scale(1.03);
 }
 
 .add-item-image {
   width: 64px;
   height: 64px;
+  object-fit: contain;
+}
+
+
+@media (max-width: 768px) {
+  .foto-nome {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nome-idade {
+    margin-left: 0;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    min-width: 100%;
+  }
 }

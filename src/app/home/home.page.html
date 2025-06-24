@@ -14,13 +14,17 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-item>
-    <ion-label>Ordenar por data de nascimento</ion-label>
-    <ion-select [(ngModel)]="selectedOrder" (ionChange)="onOrderChange()">
-      <ion-select-option value="asc">Mais velho</ion-select-option>
-      <ion-select-option value="desc">Mais novo</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <div class="selects-row">
+    <ion-item lines="full" class="select-item">
+      <ion-label>Ordenar por data de nascimento</ion-label>
+      <ion-select [(ngModel)]="selectedOrder" (ionChange)="onOrderChange()" interface="popover"
+        aria-label="Ordenar por data de nascimento">
+        <ion-select-option value="asc">Mais velho</ion-select-option>
+        <ion-select-option value="desc">Mais novo</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
 
   <ion-grid class="actor-table">
     <ion-row class="header-row">
@@ -37,23 +41,41 @@
   </ion-grid>
 
   <div *ngIf="getActorInfo() as info" class="ion-padding">
-    <h2 class="ion-text-center">Dashboard de gêneros dos atores</h2>
+    <div class="graficos-lado-a-lado">
+      <div class="grafico-item">
+        <h2 class="ion-text-center">Dashboard de gêneros dos atores</h2>
 
-    <ion-grid class="dashboard-wrapper">
-      <ion-row class="dashboard-row">
-        <ion-col size="6" class="bar-wrapper">
-          <div class="bar homem" [style.height.%]="info.homem.percentual">
-            <div class="bar-value">{{ info.homem.percentual | number:'1.0-0' }}%</div>
+        <ion-grid class="dashboard-wrapper">
+          <ion-row class="dashboard-row">
+            <ion-col size="6" class="bar-wrapper">
+              <div class="bar homem" [style.height.%]="info.homem.percentual">
+                <div class="bar-value">{{ info.homem.percentual | number:'1.0-0' }}%</div>
+              </div>
+              <div class="bar-label">Homem ({{ info.homem.quantidade }})</div>
+            </ion-col>
+            <ion-col size="6" class="bar-wrapper">
+              <div class="bar mulher" [style.height.%]="info.mulher.percentual">
+                <div class="bar-value">{{ info.mulher.percentual | number:'1.0-0' }}%</div>
+              </div>
+              <div class="bar-label">Mulher ({{ info.mulher.quantidade }})</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div *ngIf="getFaixaEtariaInfo() as faixas" class="ion-padding">
+        <h2 class="ion-text-center">Distribuição por Faixa Etária</h2>
+
+        <div class="faixa-chart">
+          <div *ngFor="let faixa of faixas" class="faixa-bar-wrapper">
+            <div class="faixa-label">{{ faixa.faixa }} ({{ faixa.quantidade }})</div>
+            <div class="faixa-bar-container">
+              <div class="faixa-bar" [style.width.%]="faixa.percentual">
+                {{ faixa.percentual | number: '1.0-0' }}%
+              </div>
+            </div>
           </div>
-          <div class="bar-label">Homem ({{ info.homem.quantidade }})</div>
-        </ion-col>
-        <ion-col size="6" class="bar-wrapper">
-          <div class="bar mulher" [style.height.%]="info.mulher.percentual">
-            <div class="bar-value">{{ info.mulher.percentual | number:'1.0-0' }}%</div>
-          </div>
-          <div class="bar-label">Mulher ({{ info.mulher.quantidade }})</div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>

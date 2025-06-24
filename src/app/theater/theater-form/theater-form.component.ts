@@ -46,7 +46,6 @@ export class TheaterFormComponent implements OnInit {
     address: new FormControl(''),
     capacity: new FormControl(''),
     website: new FormControl('', [
-      Validators.required,
       ApplicationUrlValidators.urlValidator
     ])
   });
@@ -89,7 +88,9 @@ export class TheaterFormComponent implements OnInit {
     if (!value.image || value.image.trim() === '') {
       value.image = 'https://imgs.search.brave.com/vvPQQBvMiB8sI69j6zQ6Eow2teMG6HAKXXkMysEptCI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zZWEy/LmRpc2NvdXJzZS1j/ZG4uY29tL2ZsZXgw/MjAvdXNlcl9hdmF0/YXIvY29tbXVuaXR5/LmdsaWRlYXBwcy5j/b20vbmF0aGFuYWVs/Yi80OC80MzA3OV8y/LnBuZw';
     }
-
+    if (!value.website || value.website.trim() === '') {
+      value.website = 'https://default.com';
+    }
     if (value.foundation) {
       value.foundation = parseDateMask(value.foundation)
     }
