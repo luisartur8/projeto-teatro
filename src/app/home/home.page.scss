@@ -62,8 +62,6 @@
   font-weight: 500;
 }
 
-
-
 .actor-table {
   margin: 20px auto;
   border: 1px solid #ccc;
@@ -112,9 +110,6 @@ ion-col {
   flex: 1 1 300px;
   max-width: 350px;
 }
-
-
-
 
 @media (max-width: 768px) {
   .dashboard-wrapper {
@@ -176,7 +171,7 @@ ion-col {
 .faixa-label {
   font-weight: 500;
   margin-bottom: 4px;
-  color: #ffffff;
+  color: black;
 }
 
 .faixa-bar-container {

@@ -161,6 +161,14 @@ ion-button:hover[color="danger"] {
   background-color: #F44336;
 }
 
+ion-item ion-label {
+  color: white !important;
+}
+
+ion-select::part(text) {
+  color: white;
+}
+
 .lista-vazia {
   display: flex;
   flex-direction: column;
@@ -242,8 +250,6 @@ ion-button:hover[color="danger"] {
 ion-item {
   width: 100%;
 }
-
-
 
 @media (max-width: 768px) {
   .foto-nome {
