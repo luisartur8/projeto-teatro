@@ -90,5 +90,30 @@ export class HomePage implements OnInit {
       }
     }
   }
+  getFaixaEtariaInfo() {
+    const faixas = {
+      '0-17': 0,
+      '18-30': 0,
+      '31-45': 0,
+      '46-60': 0,
+      '61+': 0
+    };
 
+    for (const actor of this.actorList) {
+      const idade = this.getAge(actor.birth_date);
+      if (idade <= 17) faixas['0-17']++;
+      else if (idade <= 30) faixas['18-30']++;
+      else if (idade <= 45) faixas['31-45']++;
+      else if (idade <= 60) faixas['46-60']++;
+      else faixas['61+']++;
+    }
+
+    const total = this.actorList.length || 1;
+
+    return Object.entries(faixas).map(([faixa, quantidade]) => ({
+      faixa,
+      quantidade,
+      percentual: (quantidade / total) * 100
+    }));
+  }
 }
